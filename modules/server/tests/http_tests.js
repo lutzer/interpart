@@ -175,13 +175,43 @@ describe("responses", function () {
             assert(res.statusCode,200);
             assert(res.body.data.text, "Hi");
         });
+    })
 
+    it("should retrieve greeting in selected language", async () => {
+        const randomLanguage = _.sample(languages);
+        chai.request(app).get('/response/greeting?lang=' + randomLanguage).end((err, res) => {
+            assert(res.statusCode,200);
+            assert(res.body.data.language, randomLanguage);
+        });
     })
 
     it("should retrieve goodbye", async () => {
         chai.request(app).get('/response/goodbye').end((err, res) => {
             assert(res.statusCode,200);
             assert(res.body.data.text, "Bye");
+        });
+    })
+
+    it("should retrieve goodbye in selected language", async () => {
+        const randomLanguage = _.sample(languages);
+        chai.request(app).get('/response/goodbye?lang=' + randomLanguage).end((err, res) => {
+            assert(res.statusCode,200);
+            assert(res.body.data.language, randomLanguage);
+        });
+    })
+
+    it("should retrieve questions", async () => {
+        chai.request(app).get('/questions/list').end((err, res) => {
+            assert(res.statusCode,200);
+            assert(res.body.data[0].text, "What");
+        });
+    })
+
+    it("should retrieve questions in selected language", async () => {
+        const randomLanguage = _.sample(languages);
+        chai.request(app).get('/questions/list?lang=' + randomLanguage).end((err, res) => {
+            assert(res.statusCode,200);
+            assert(res.body.data[0].language, randomLanguage);
         });
     })
 })

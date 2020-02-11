@@ -2,7 +2,7 @@
  * @Author: Lutz Reiter - http://lu-re.de 
  * @Date: 2019-03-29 19:20:39 
  * @Last Modified by: Lutz Reiter - http://lu-re.de
- * @Last Modified time: 2020-02-11 16:36:15
+ * @Last Modified time: 2020-02-11 17:04:41
  */
 
 const low = require('lowdb')
@@ -81,7 +81,7 @@ function setupRoutes(app) {
 
     app.get('/questions/list', async (req, res) => {
         try {
-            const questionData = getSettings().get("questions").value()
+            const questionData = getSettings().get("settings.questions").value()
             const questions = _.map(questionData, (ele) => {
                 let question = new ResponseModel(ele)
                 return question
@@ -137,10 +137,6 @@ function setupRoutes(app) {
         }
     })
 
-    app.get('/', async (req, res) => {
-        res.send("Hello World");
-    })
-
     app.get('/settings/', async (req, res) => {
         try {
             const settings = getSettings().get('settings').value()
@@ -187,7 +183,7 @@ function setupRoutes(app) {
         }        
     })
 
-    app.use('/assets/',express.static('assets'))
+    app.use('/',express.static('www'))
 }
 
 const app = express()
