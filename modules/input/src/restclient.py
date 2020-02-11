@@ -9,32 +9,26 @@ class RestClient:
     def getQuestions(self, language):
         url = self.apiAdress + "/questions/list?lang=" + language
         response = requests.get(url)
-        questions = response.json()["data"]
-        return questions
+        data = response.json()["data"]
+        return data
 
     def getQuestion(self, id):
         url = self.apiAdress + "/questions/get/" + id
         response = requests.get(url)
-        question = response.json()["data"]
-        return question
-
-    def getNameQuestion(self, language):
-        url = self.apiAdress + "/questions/name?lang=" + language
-        response = requests.get(url)
-        questions = response.json()["data"]
-        return questions
+        data = response.json()["data"]
+        return data
 
     def getGreeting(self, language):
-        url = self.apiAdress + "/questions/greeting?lang=" + language
+        url = self.apiAdress + "/response/greeting?lang=" + language
         response = requests.get(url)
-        greeting = response.json()["data"]
-        return greeting
+        data = response.json()["data"]
+        return data
 
     def getGoodbye(self, language):
-        url = self.apiAdress + "/questions/goodbye?lang=" + language
+        url = self.apiAdress + "/response/goodbye?lang=" + language
         response = requests.get(url)
-        questions = response.json()["data"]
-        return questions
+        data = response.json()["data"]
+        return data
 
     def postAnswer(self, submission):
         url = self.apiAdress + "/submissions/add"

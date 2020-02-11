@@ -95,7 +95,6 @@ def run(config):
                 led.update(Leds.rgb_on(Color.RED))
                 answer = voiceInput.listenToMic(silenceTimeout = config["SPEAKING_ANSWER_TIMEOUT"])
                 led.update(Leds.rgb_off())
-                #answer = voiceInput.listenToFile("data/georgisch.wav")
                 state.consumeAction(Action.SET_ANSWER, answer = answer)
             except Exception as error:
                 state.consumeAction(Action.THROW_ERROR, error = str(error))
@@ -104,11 +103,8 @@ def run(config):
             if not state.answer:
                 state.consumeAction(Action.THROW_ERROR, error = "Answer is empty")
             else:
-                #speakText(state.answer, state.language)
-                # pick randim goodbye sentence
-                goodbyes = restClient.getGoodbye(state.language)
-                goodbye = goodbyes[random.randint(0, len(goodbyes) - 1)]
-
+                goodbye = restClient.getGoodbye(state.language)
+                
                 # speak goodbye
                 led.update(Leds.rgb_on(Color.BLUE))
                 speakText( goodbye["text"].replace("{{NAME}}", state.author), state.language )
