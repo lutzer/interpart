@@ -2,7 +2,7 @@
  * @Author: Lutz Reiter - http://lu-re.de 
  * @Date: 2019-03-29 19:20:39 
  * @Last Modified by: Lutz Reiter - http://lu-re.de
- * @Last Modified time: 2020-02-12 09:52:54
+ * @Last Modified time: 2020-02-12 10:38:35
  */
 
 const low = require('lowdb')
@@ -183,13 +183,12 @@ function setupRoutes(app) {
         }        
     })
 
-    app.use('/',express.static('./client/build/'))
+    // serve admin interface
+    app.use('/',express.static('./www/'))
 }
 
 const app = express()
 setupRoutes(app)
 
-//start server
-app.listen(config.port, () => console.log(`Interpart Server listening on port ${config.port}!`))
 
 module.exports = { app, getDatabase, getSettings };
