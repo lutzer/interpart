@@ -2,7 +2,7 @@
  * @Author: Lutz Reiter - http://lu-re.de 
  * @Date: 2019-03-29 19:20:29 
  * @Last Modified by: Lutz Reiter - http://lu-re.de
- * @Last Modified time: 2020-02-11 09:12:15
+ * @Last Modified time: 2020-02-12 19:29:27
  */
 
 const _ = require('lodash')
@@ -18,8 +18,8 @@ class SubmissionModel {
         this.data = _.extend({
             id : uuidv1(),
             question: null,
-            text : "",
-            language : "de",
+            text : '',
+            language : 'de',
             author: null,
             createdAt: Date.now(),
             translations : []

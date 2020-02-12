@@ -2,11 +2,11 @@
  * @Author: Lutz Reiter - http://lu-re.de 
  * @Date: 2019-03-29 19:20:20 
  * @Last Modified by: Lutz Reiter - http://lu-re.de
- * @Last Modified time: 2020-02-11 13:06:25
+ * @Last Modified time: 2020-02-12 19:29:17
  */
 
 const _ = require('lodash')
-const uuidv1 = require('uuid/v1');
+const uuidv1 = require('uuid/v1')
 
 const { translate } = require('../utils')
 const config = require('../config')
@@ -17,8 +17,8 @@ class ResponseModel {
 
         this.data = _.extend({
             id : uuidv1(),
-            text : "",
-            language : "de",
+            text : '',
+            language : 'de',
             translations : []
         }, data)
     }

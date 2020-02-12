@@ -2,7 +2,7 @@
  * @Author: Lutz Reiter - http://lu-re.de 
  * @Date: 2019-03-29 19:20:39 
  * @Last Modified by: Lutz Reiter - http://lu-re.de
- * @Last Modified time: 2020-02-12 16:53:01
+ * @Last Modified time: 2020-02-12 19:26:35
  */
 
 const low = require('lowdb')
@@ -43,8 +43,8 @@ function getDatabase() {
 function setupRoutes(app) {
     app.use(bodyParser.json())
 
-     // use cors only in development mode
-     if (process.env.__DEV__) {
+    // use cors only in development mode
+    if (process.env.__DEV__) {
         const cors = require('cors')
         app.use('/settings/',cors())
     }   
@@ -71,10 +71,10 @@ function setupRoutes(app) {
         try {
 
             if (!SubmissionModel.validate(req.body))
-                throw "Validation failed"
+                throw 'Validation failed'
             
             var submission = new SubmissionModel(req.body)
-            await submission.translate();
+            await submission.translate()
 
             db.get('submissions').push(submission.data).write()
 
@@ -87,7 +87,7 @@ function setupRoutes(app) {
 
     app.get('/response/greeting', async (req, res) => {
         try {
-            const greeting = new ResponseModel( getSettings().get("settings.greeting").value() );
+            const greeting = new ResponseModel( getSettings().get('settings.greeting').value() )
             if (_.has(req.query,'lang')) {
                 res.send({ data: greeting.getLanguage(req.query.lang) })
             } else
@@ -100,7 +100,7 @@ function setupRoutes(app) {
 
     app.get('/response/question', async (req, res) => {
         try {
-            const question = new ResponseModel( getSettings().get("settings.question").value() )
+            const question = new ResponseModel( getSettings().get('settings.question').value() )
 
             if (_.has(req.query,'lang')) {
                 res.send({ data: question.getLanguage(req.query.lang) })
@@ -114,7 +114,7 @@ function setupRoutes(app) {
 
     app.get('/response/goodbye', async (req, res) => {
         try {
-            const greeting = new ResponseModel( getSettings().get("settings.goodbye").value() )
+            const greeting = new ResponseModel( getSettings().get('settings.goodbye').value() )
 
             if (_.has(req.query,'lang')) {
                 res.send({ data: greeting.getLanguage(req.query.lang) })
@@ -143,29 +143,29 @@ function setupRoutes(app) {
 
             // check if greeting changed
             if (_.has(req.body,'greeting') && settings.greeting.text != req.body.greeting.text) {
-                const greeting = new ResponseModel(req.body.greeting);
-                await greeting.translate();
-                settings.greeting = greeting.data;
+                const greeting = new ResponseModel(req.body.greeting)
+                await greeting.translate()
+                settings.greeting = greeting.data
             }
 
             // check if goodbye changed
             if (_.has(req.body,'goodbye') && settings.goodbye.text != req.body.goodbye.text) {
-                const goodbye = new ResponseModel(req.body.goodbye);
-                await goodbye.translate();
-                settings.goodbye = goodbye.data;
+                const goodbye = new ResponseModel(req.body.goodbye)
+                await goodbye.translate()
+                settings.goodbye = goodbye.data
             }
 
             // check if question changed
             if (_.has(req.body,'question') && settings.question.text != req.body.question.text) {
-                const question = new ResponseModel(req.body.question);
-                await question.translate();
-                settings.question = question.data;
+                const question = new ResponseModel(req.body.question)
+                await question.translate()
+                settings.question = question.data
             }
 
             // save to database
             settingsDb.set('settings', settings).write()
                 
-            res.send({ data: settings });
+            res.send({ data: settings })
         } catch (err) {
             console.log(err)
             res.status(400).send({error: err})
@@ -182,4 +182,4 @@ const app = express()
 setupRoutes(app)
 
 
-module.exports = { app, getDatabase, getSettings };
+module.exports = { app, getDatabase, getSettings }
