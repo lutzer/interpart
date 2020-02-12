@@ -21,16 +21,14 @@ function ResponseForm({ title = '', text = '', data = {}, languages = [], onChan
     }
 
     function handleRevertClick() {
-        setDataText(data.text)
-        setDataLang(data.language)
+        setDataText(data.text ? data.text : '')
+        setDataLang(data.language ? data.language : '')
         onChange(undefined)
     }
 
     const languageFields = languages.map( (ele,index) => {
         return <option key={index} value={ele}>{ele}</option>
     })
-
-    console.log("form render")
 
     return (
         <div>

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import { HeaderView } from './HeaderView'
 import { ResponseForm } from './ResponseForm'
+import { SpinnerOverlay } from './SpinnerOverlay'
 
 const apiAdress = 'http://localhost:3030'
 
@@ -32,7 +33,8 @@ class MainView extends Component {
                 question: {},
                 goodbye: {},
                 languages: [ 'de', 'en']
-            }
+            },
+            spinner : false
         }
 
         this.changes = {}
@@ -50,9 +52,15 @@ class MainView extends Component {
     }
 
     saveSettings() {
+        this.setState({ spinner: "Saving Settings ..." })
         post(apiAdress + '/settings/', this.changes)
             .then(() => {
+                this.setState({ spinner: false })
                 alert('Settings saved')
+            })
+            .catch(() => {
+                this.setState({ spinner: false })
+                alert('Error: No connection')
             })
     }
 
@@ -63,9 +71,10 @@ class MainView extends Component {
     }
     
     render() {
-        var { data } = this.state
+        var { data, spinner } = this.state
         return (
             <div>
+                {spinner && <SpinnerOverlay text={spinner}/>}
                 <HeaderView/>
                 <ResponseForm 
                     title="Greeting" 

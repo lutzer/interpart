@@ -9,9 +9,8 @@ const webpackDevConfig = require('./webpack.development.config.js')
 const webpackDeployConfig = require('./webpack.deployment.config.js')
 
 async function copy_files() {
-    // do nothing
-    // return src('./src/*.html')
-    // .pipe(dest('./build/', { overwrite: true }))
+    return src('./src/*.css')
+    .pipe(dest('./build/', { overwrite: true }))
 }
 
 async function build_webpack() {
