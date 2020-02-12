@@ -2,17 +2,17 @@
  * @Author: Lutz Reiter - http://lu-re.de 
  * @Date: 2019-03-29 19:20:39 
  * @Last Modified by: Lutz Reiter - http://lu-re.de
- * @Last Modified time: 2020-02-12 10:38:35
+ * @Last Modified time: 2020-02-12 14:21:37
  */
 
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
 const express = require('express')
 const bodyParser = require('body-parser')
+const _ = require('lodash')
 
 const { SubmissionModel } = require('./models/SubmissionModel') 
 const { ResponseModel } = require('./models/ResponseModel') 
-const _ = require('lodash')
 const config = require('./config')
 
 function getSettings() {
@@ -42,6 +42,12 @@ function getDatabase() {
 
 function setupRoutes(app) {
     app.use(bodyParser.json())
+
+     // use cors only in development mode
+     if (process.env.__DEV__) {
+        const cors = require('cors')
+        app.use('/settings/',cors())
+    }   
 
     app.get('/submissions/list', (req, res) => {
         const db = getDatabase()
@@ -185,6 +191,8 @@ function setupRoutes(app) {
 
     // serve admin interface
     app.use('/',express.static('./www/'))
+
+    
 }
 
 const app = express()

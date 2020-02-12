@@ -1,4 +1,7 @@
 {
     "verbose": false,
-    "ignore": ["db.json","settings.json"]
+    "ignore": ["db.json","settings.json"],
+    "env": {
+        "__DEV__": "true"
+    }
 }

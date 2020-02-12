@@ -1,7 +1,7 @@
 {
   "settings": {
     "greeting": {
-      "id": "817954b3-4d7b-11ea-88b6-9b0638a4061f",
+      "id": "52b2b543-4d99-11ea-a018-7f7e5156e667",
       "text": "Hi",
       "language": "en",
       "translations": [
@@ -64,7 +64,7 @@
       ]
     },
     "goodbye": {
-      "id": "81d864a0-4d7b-11ea-88b6-9b0638a4061f",
+      "id": "5316ce40-4d99-11ea-a018-7f7e5156e667",
       "text": "Bye",
       "language": "en",
       "translations": [
@@ -128,7 +128,7 @@
     },
     "questions": [
       {
-        "id": "82404e30-4d7b-11ea-88b6-9b0638a4061f",
+        "id": "5382fd90-4d99-11ea-a018-7f7e5156e667",
         "text": "What",
         "language": "en",
         "translations": [
