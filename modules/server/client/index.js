@@ -1,0 +1,1 @@
+document.write("Hi 2")

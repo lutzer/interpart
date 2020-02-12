@@ -1,0 +1,70 @@
+{
+  "submissions": [
+    {
+      "id": "2ae11160-4d35-11ea-8a3c-137f3a9df04b",
+      "question": null,
+      "text": "Hallo Welt.",
+      "language": "de",
+      "author": null,
+      "createdAt": 1581470133622,
+      "translations": [
+        {
+          "text": "Hello World.",
+          "language": "en"
+        },
+        {
+          "text": "Bonjour tout le monde.",
+          "language": "fr"
+        },
+        {
+          "text": "Ciao mondo.",
+          "language": "it"
+        },
+        {
+          "text": "Hola mundo",
+          "language": "es"
+        },
+        {
+          "text": "مرحبا بالعالم.",
+          "language": "ar"
+        },
+        {
+          "text": "سلام بر جهان.",
+          "language": "fa"
+        },
+        {
+          "text": "Merhaba dünya.",
+          "language": "tr"
+        },
+        {
+          "text": "Γεια σου κόσμο.",
+          "language": "el"
+        },
+        {
+          "text": "سلام نړۍ.",
+          "language": "ps"
+        },
+        {
+          "text": "Привет мир.",
+          "language": "ru"
+        },
+        {
+          "text": "Привіт, світ.",
+          "language": "uk"
+        },
+        {
+          "text": "Salut lume.",
+          "language": "ro"
+        },
+        {
+          "text": "Witaj świecie",
+          "language": "pl"
+        },
+        {
+          "text": "Hello cîhanê.",
+          "language": "ku"
+        }
+      ]
+    }
+  ]
+}
