@@ -94,7 +94,7 @@ describe("settings", function () {
             assert.typeOf(res.body.data, "Object");
             assert.typeOf(res.body.data.greeting, "Object");
             assert.typeOf(res.body.data.goodbye, "Object");
-            assert.typeOf(res.body.data.questions, "Array");
+            assert.typeOf(res.body.data.question, "Object");
             assert.typeOf(res.body.data.languages, "Array");
         });
     })
@@ -136,8 +136,8 @@ describe("settings", function () {
         .send({ question : { text: randomString, language: 'de' } })
         .end((err, res) => {
             assert(res.statusCode,200);
-            assert(res.body.data.questions[0].text, randomString);
-            assert.isNotEmpty(res.body.data.questions[0].translations);
+            assert(res.body.data.question.text, randomString);
+            assert.isNotEmpty(res.body.data.question.translations);
         });
     })
 
@@ -148,7 +148,7 @@ describe("settings", function () {
 
         chai.request(app).get('/settings/').end((err, res) => {
             assert(res.statusCode,200);
-            assert(res.body.data.questions[0].text, randomString);
+            assert(res.body.data.question.text, randomString);
         });
 
     })
@@ -201,17 +201,17 @@ describe("responses", function () {
     })
 
     it("should retrieve questions", async () => {
-        chai.request(app).get('/questions/list').end((err, res) => {
+        chai.request(app).get('/response/question').end((err, res) => {
             assert(res.statusCode,200);
-            assert(res.body.data[0].text, "What");
+            assert(res.body.data.text, "What");
         });
     })
 
     it("should retrieve questions in selected language", async () => {
         const randomLanguage = _.sample(languages);
-        chai.request(app).get('/questions/list?lang=' + randomLanguage).end((err, res) => {
+        chai.request(app).get('/response/question?lang=' + randomLanguage).end((err, res) => {
             assert(res.statusCode,200);
-            assert(res.body.data[0].language, randomLanguage);
+            assert(res.body.data.language, randomLanguage);
         });
     })
 })

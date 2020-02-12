@@ -2,7 +2,7 @@
  * @Author: Lutz Reiter - http://lu-re.de 
  * @Date: 2019-03-29 19:20:39 
  * @Last Modified by: Lutz Reiter - http://lu-re.de
- * @Last Modified time: 2020-02-12 14:21:37
+ * @Last Modified time: 2020-02-12 16:53:01
  */
 
 const low = require('lowdb')
@@ -23,8 +23,8 @@ function getSettings() {
     db.defaults({ settings: {
         greeting: (new ResponseModel()).data,
         goodbye : (new ResponseModel()).data,
-        questions : [ (new ResponseModel()).data ],
-        languages : [ "de" , "en"]
+        question : (new ResponseModel()).data,
+        languages : config.languages
     }}).write()
 
     return db
@@ -85,37 +85,6 @@ function setupRoutes(app) {
         } 
     })
 
-    app.get('/questions/list', async (req, res) => {
-        try {
-            const questionData = getSettings().get("settings.questions").value()
-            const questions = _.map(questionData, (ele) => {
-                let question = new ResponseModel(ele)
-                return question
-            })
-
-            if (_.has(req.query,'lang')) {
-                let translations = _.map(questions, (questions) => {
-                    return questions.getLanguage(req.query.lang)
-                })
-                res.send({ data: _.compact(translations) })
-            } else
-                res.send({ data: _.map(questions, (q) => q.data) })
-        } catch (err) {
-            console.log(err)
-            res.status(400).send({error: err})
-        }
-    })
-
-    app.get('/questions/get/:id', async (req, res) => {
-        try {
-            const question = new ResponseModel( getSettings().get('settings.questions').find({ id : req.params.id }) );
-            res.send({ data: question.data })
-        } catch (err) {
-            console.log(err)
-            res.status(400).send({error: err})
-        }
-    })
-
     app.get('/response/greeting', async (req, res) => {
         try {
             const greeting = new ResponseModel( getSettings().get("settings.greeting").value() );
@@ -123,6 +92,20 @@ function setupRoutes(app) {
                 res.send({ data: greeting.getLanguage(req.query.lang) })
             } else
                 res.send({ data: greeting.data })
+        } catch (err) {
+            console.log(err)
+            res.status(400).send({error: err})
+        }
+    })
+
+    app.get('/response/question', async (req, res) => {
+        try {
+            const question = new ResponseModel( getSettings().get("settings.question").value() )
+
+            if (_.has(req.query,'lang')) {
+                res.send({ data: question.getLanguage(req.query.lang) })
+            } else
+                res.send({ data: question.data })
         } catch (err) {
             console.log(err)
             res.status(400).send({error: err})
@@ -173,10 +156,10 @@ function setupRoutes(app) {
             }
 
             // check if question changed
-            if (_.has(req.body,'question') && settings.questions[0].text != req.body.question.text) {
+            if (_.has(req.body,'question') && settings.question.text != req.body.question.text) {
                 const question = new ResponseModel(req.body.question);
                 await question.translate();
-                settings.questions[0] = question.data;
+                settings.question = question.data;
             }
 
             // save to database

@@ -1,40 +1,40 @@
 {
   "settings": {
     "greeting": {
-      "id": "52b2b543-4d99-11ea-a018-7f7e5156e667",
-      "text": "Hi",
-      "language": "en",
+      "id": "cef3dc63-4dbc-11ea-be37-abf197e5581d",
+      "text": "hey",
+      "language": "de",
       "translations": [
         {
-          "text": "Hallo",
-          "language": "de"
+          "text": "hey",
+          "language": "en"
         },
         {
-          "text": "salut",
+          "text": "hé",
           "language": "fr"
         },
         {
-          "text": "Ciao",
+          "text": "ehi",
           "language": "it"
         },
         {
-          "text": "Hola",
+          "text": "¡eh",
           "language": "es"
         },
         {
-          "text": "مرحبا",
+          "text": "مهلا",
           "language": "ar"
         },
         {
-          "text": "سلام",
+          "text": "هی",
           "language": "fa"
         },
         {
-          "text": "Selam",
+          "text": "hey",
           "language": "tr"
         },
         {
-          "text": "γεια",
+          "text": "γειά",
           "language": "el"
         },
         {
@@ -42,158 +42,169 @@
           "language": "ps"
         },
         {
-          "text": "Здравствуй",
+          "text": "эй",
           "language": "ru"
         },
         {
-          "text": "Привіт",
+          "text": "агов",
           "language": "uk"
         },
         {
-          "text": "Bună",
+          "text": "hei",
           "language": "ro"
         },
         {
-          "text": "cześć",
+          "text": "hej",
           "language": "pl"
         },
         {
-          "text": "merheba",
+          "text": "hey",
           "language": "ku"
         }
       ]
     },
     "goodbye": {
-      "id": "5316ce40-4d99-11ea-a018-7f7e5156e667",
-      "text": "Bye",
-      "language": "en",
+      "id": "cf67faf0-4dbc-11ea-be37-abf197e5581d",
+      "text": "da",
+      "language": "tr",
       "translations": [
         {
-          "text": "Tschüss",
+          "text": "auch",
           "language": "de"
         },
         {
-          "text": "Au revoir",
+          "text": "in",
+          "language": "en"
+        },
+        {
+          "text": "aussi",
           "language": "fr"
         },
         {
-          "text": "Ciao",
+          "text": "anche",
           "language": "it"
         },
         {
-          "text": "Adiós",
+          "text": "también",
           "language": "es"
         },
         {
-          "text": "وداعا",
+          "text": "أيضا",
           "language": "ar"
         },
         {
-          "text": "خدا حافظ",
+          "text": "همچنین",
           "language": "fa"
         },
         {
-          "text": "Hoşçakal",
-          "language": "tr"
-        },
-        {
-          "text": "Αντίο",
+          "text": "επίσης",
           "language": "el"
         },
         {
-          "text": "د خدای په امان",
+          "text": "هم",
           "language": "ps"
         },
         {
-          "text": "до свидания",
+          "text": "также",
           "language": "ru"
         },
         {
-          "text": "До побачення",
+          "text": "також",
           "language": "uk"
         },
         {
-          "text": "Pa",
+          "text": "de asemenea",
           "language": "ro"
         },
         {
-          "text": "PA",
+          "text": "również",
           "language": "pl"
         },
         {
-          "text": "Xatirê te",
+          "text": "jî",
           "language": "ku"
         }
       ]
     },
-    "questions": [
-      {
-        "id": "5382fd90-4d99-11ea-a018-7f7e5156e667",
-        "text": "What",
-        "language": "en",
-        "translations": [
-          {
-            "text": "Was",
-            "language": "de"
-          },
-          {
-            "text": "Quoi",
-            "language": "fr"
-          },
-          {
-            "text": "Che cosa",
-            "language": "it"
-          },
-          {
-            "text": "Qué",
-            "language": "es"
-          },
-          {
-            "text": "ماذا",
-            "language": "ar"
-          },
-          {
-            "text": "چی",
-            "language": "fa"
-          },
-          {
-            "text": "Ne",
-            "language": "tr"
-          },
-          {
-            "text": "Τι",
-            "language": "el"
-          },
-          {
-            "text": "څه",
-            "language": "ps"
-          },
-          {
-            "text": "какая",
-            "language": "ru"
-          },
-          {
-            "text": "Що",
-            "language": "uk"
-          },
-          {
-            "text": "Ce",
-            "language": "ro"
-          },
-          {
-            "text": "Co",
-            "language": "pl"
-          },
-          {
-            "text": "Çi",
-            "language": "ku"
-          }
-        ]
-      }
-    ],
+    "question": {
+      "id": "cfd1b940-4dbc-11ea-be37-abf197e5581d",
+      "text": "du",
+      "language": "fr",
+      "translations": [
+        {
+          "text": "von der",
+          "language": "de"
+        },
+        {
+          "text": "of",
+          "language": "en"
+        },
+        {
+          "text": "del",
+          "language": "it"
+        },
+        {
+          "text": "de los",
+          "language": "es"
+        },
+        {
+          "text": "ال",
+          "language": "ar"
+        },
+        {
+          "text": "از",
+          "language": "fa"
+        },
+        {
+          "text": "arasında",
+          "language": "tr"
+        },
+        {
+          "text": "του",
+          "language": "el"
+        },
+        {
+          "text": "د",
+          "language": "ps"
+        },
+        {
+          "text": "из",
+          "language": "ru"
+        },
+        {
+          "text": "з",
+          "language": "uk"
+        },
+        {
+          "text": "din",
+          "language": "ro"
+        },
+        {
+          "text": "z",
+          "language": "pl"
+        },
+        {
+          "text": "ji",
+          "language": "ku"
+        }
+      ]
+    },
     "languages": [
       "de",
-      "en"
+      "en",
+      "fr",
+      "it",
+      "es",
+      "ar",
+      "fa",
+      "tr",
+      "el",
+      "ps",
+      "ru",
+      "uk",
+      "ro",
+      "pl",
+      "ku"
     ]
   }
 }
