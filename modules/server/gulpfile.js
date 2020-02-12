@@ -1,21 +1,27 @@
-const { parallel, watch, src, dest } = require('gulp');
+const { parallel, series, watch, src, dest } = require('gulp');
 const nodemon = require('gulp-nodemon');
 const browserSync = require('browser-sync').create();
 const webpackStream = require('webpack-stream');
-const webpackConfig = require('./webpack.config.js')
 const webpack = require('webpack');
 
-async function build() {
-    return src('./client/index.js')
-    .pipe(webpackStream(webpackConfig), webpack)
-    .pipe(dest('./www/', { overwrite: true }))
+const webpackDevConfig = require('./webpack.development.config.js')
+
+async function copy_files() {
+    return src('./client/src/*.html')
+    .pipe(dest('./client/build/', { overwrite: true }))
+}
+
+async function build_dev() {
+    return src('./client/src/index.js')
+    .pipe(webpackStream(webpackDevConfig), webpack)
+    .pipe(dest('./client/build/', { overwrite: true }))
 }
 
 async function watch_server() {
     nodemon({
         verbose: false,
-        ignore: ["db.json","settings.json","www/*","client/*"],
         script: './server.js',
+        watch: ["server.js", "config.js", "models/*.*"]
     });
 };
 
@@ -25,14 +31,14 @@ async function sync_browser() {
         proxy: 'http://localhost:3030/',
         reloadDelay: 200
     });
-    watch(['www/*.*']).on("change", () => {
+    watch(['client/build/*.*']).on("change", () => {
         browserSync.reload()
     })
 };
 
 async function watch_client() {
-    watch(['client/*.*']).on('change', build)
+    watch(['client/src/*.*']).on('change', series(copy_files, build_dev))
 }
 
-exports.build = build;
+exports.build = series(copy_files, build_dev);
 exports.watch = parallel(watch_server, watch_client, sync_browser);

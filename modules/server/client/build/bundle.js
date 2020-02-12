@@ -81,20 +81,21 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./client/index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./client/src/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./client/index.js":
-/*!*************************!*\
-  !*** ./client/index.js ***!
-  \*************************/
+/***/ "./client/src/index.js":
+/*!*****************************!*\
+  !*** ./client/src/index.js ***!
+  \*****************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("document.write(\"Hi 2\")\n\n//# sourceURL=webpack:///./client/index.js?");
+document.write("Hi ")
 
 /***/ })
 
 /******/ });
+//# sourceMappingURL=bundle.js.map

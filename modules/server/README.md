@@ -10,6 +10,10 @@ Holds question ands submission, provides translation service.
 
 * run `npm install`
 
+## Development
+
+* run `npm install gulp-cli -g`
+
 ## Start Server
 
 * run `npm start` or run `npm run watch` for auto reload development mode
