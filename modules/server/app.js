@@ -2,7 +2,7 @@
  * @Author: Lutz Reiter - http://lu-re.de 
  * @Date: 2019-03-29 19:20:39 
  * @Last Modified by: Lutz Reiter - http://lu-re.de
- * @Last Modified time: 2020-02-12 19:26:35
+ * @Last Modified time: 2020-02-13 17:58:55
  */
 
 const low = require('lowdb')
@@ -24,7 +24,8 @@ function getSettings() {
         greeting: (new ResponseModel()).data,
         goodbye : (new ResponseModel()).data,
         question : (new ResponseModel()).data,
-        languages : config.languages
+        languages : config.languages,
+        buttons: _.fill(Array(config.numberOfButtons), { language : 'de' })
     }}).write()
 
     return db
@@ -46,7 +47,8 @@ function setupRoutes(app) {
     // use cors only in development mode
     if (process.env.__DEV__) {
         const cors = require('cors')
-        app.use('/settings/',cors())
+        app.use('/settings',cors())
+        app.use('/translate',cors())
     }   
 
     app.get('/submissions/list', (req, res) => {
@@ -126,7 +128,23 @@ function setupRoutes(app) {
         }
     })
 
-    app.get('/settings/', async (req, res) => {
+    app.post('/translate', async(req, res) => {
+        try {
+            if (!ResponseModel.validate(req.body))
+                throw 'Validation failed'
+            
+            var response = new ResponseModel(req.body)
+
+            await response.translate()
+
+            res.send({ data: response.data})
+        } catch (err) {
+            console.log(err)
+            res.status(400).send({error: err})
+        } 
+    })
+
+    app.get('/settings', async (req, res) => {
         try {
             const settings = getSettings().get('settings').value()
             res.send({ data: settings })
@@ -136,7 +154,7 @@ function setupRoutes(app) {
         }
     })
 
-    app.post('/settings/', async (req, res) => {
+    app.post('/settings', async (req, res) => {
         try {
             const settingsDb = getSettings()
             var settings = settingsDb.get('settings').value()
@@ -160,6 +178,14 @@ function setupRoutes(app) {
                 const question = new ResponseModel(req.body.question)
                 await question.translate()
                 settings.question = question.data
+            }
+
+            // check if buttons were changed
+            if (_.has(req.body, 'buttons') && _.isArray(req.body.buttons) ) {
+                req.body.buttons.forEach( (ele,i) => {
+                    if (ele)
+                        settings.buttons[i] = ele
+                })
             }
 
             // save to database

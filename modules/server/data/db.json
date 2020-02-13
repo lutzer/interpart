@@ -1,12 +1,12 @@
 {
   "submissions": [
     {
-      "id": "648c7290-4da5-11ea-b1d2-016ee6fe8360",
+      "id": "cbda38e0-4e83-11ea-964a-03a6b9244478",
       "question": null,
       "text": "Hallo Welt.",
       "language": "de",
       "author": null,
-      "createdAt": 1581518334009,
+      "createdAt": 1581613855598,
       "translations": [
         {
           "text": "Hello World.",
