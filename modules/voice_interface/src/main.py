@@ -10,7 +10,7 @@ from .voiceinput import VoiceInput
 from .statemachine import StateMachine, Action, State
 from .restclient import RestClient
 from .audio.speak import speak
-from .hardware.leds import Leds,Color,LedsDummy
+from .hardware.arduino import Arduino,ArduinoDummy
 
 logging.basicConfig(level=logging.INFO)
 
@@ -22,34 +22,38 @@ def run(config):
     #initialize
     logging.info("started script")
     state = StateMachine(State.WAITING_FOR_KEY)
-    restClient = RestClient("http://localhost:3030")
+    restClient = RestClient(config['API_ADRESS'])
 
     try:
-        led = Leds()
+        arduino = Arduino(config['SERIAL_PORT'])
     except:
-        led = LedsDummy()
-
-    led.update(Leds.rgb_off())
+        logging.warning("Cannot connect to arduino on " + config.SERIAL_PORT)
+        arduino = ArduinoDummy()
 
     while running:
         if (state.status == State.WAITING_FOR_KEY):
             try:
-                buttonNumber = int(input("select button: "))
+                # clear input buffer
+                arduino.clear()
+                # wait for serial msg from arduino
+                buttonNumber = arduino.read()
+                
+                # get settings from server
                 settings = restClient.getSettings()
                 language = settings['buttons'][buttonNumber]['language']
                 logging.info("selected language: " + language)
                 state.consumeAction(Action.SET_LANGUAGE, language = language)
             except:
-                state.consumeAction(Action.THROW_ERROR, error = "Could not fetch language for selected button")
+                state.consumeAction(Action.THROW_ERROR, error = "Could not fetch language for selected button. Server not running?")
 
         elif state.status == State.SAY_GREETING:
             logging.info("fetching greeting")
             try:
                 # get greeting instead of name question
                 greeting = restClient.getGreeting(state.language)
-                led.update(Leds.rgb_on(Color.BLUE))
+                arduino.send("speak")
                 speakText(greeting["text"], state.language)
-                led.update(Leds.rgb_off())
+                arduino.send("done")
                 state.consumeAction(Action.DONE)
             except:
                 state.consumeAction(Action.THROW_ERROR, error = "Failed fetching or speaking question")
@@ -58,9 +62,9 @@ def run(config):
             logging.info("listening for name")
             try:
                 voiceInput = VoiceInput(state.language, config["SUPPORTED_LANGUAGES"])
-                led.update(Leds.rgb_on(Color.RED))
+                arduino.send("listen")
                 answer = voiceInput.listenToMic(silenceTimeout = 1.0)
-                led.update(Leds.rgb_off())
+                arduino.send("done")
                 logging.info("user name is: " + answer )
                 state.consumeAction(Action.SET_NAME, name = answer)
             except Exception as error:
@@ -79,18 +83,18 @@ def run(config):
 
         elif state.status == State.ASKING_QUESTION:
             logging.info("asking question: " + str(state.question))
-            led.update(Leds.rgb_on(Color.BLUE))
+            arduino.send("speak")
             speakText(state.question["text"], state.language)
-            led.update(Leds.rgb_off())
+            arduino.send("done")
             state.consumeAction(Action.DONE)
 
         elif state.status == State.LISTENING:
             logging.info("listening for voice input")
             try:
                 voiceInput = VoiceInput(state.language, config["SUPPORTED_LANGUAGES"])
-                led.update(Leds.rgb_on(Color.RED))
+                arduino.send("listen")
                 answer = voiceInput.listenToMic(silenceTimeout = config["SPEAKING_ANSWER_TIMEOUT"])
-                led.update(Leds.rgb_off())
+                arduino.send("done")
                 state.consumeAction(Action.SET_ANSWER, answer = answer)
             except Exception as error:
                 state.consumeAction(Action.THROW_ERROR, error = str(error))
@@ -102,9 +106,9 @@ def run(config):
                 goodbye = restClient.getGoodbye(state.language)
                 
                 # speak goodbye
-                led.update(Leds.rgb_on(Color.BLUE))
+                arduino.send("speak")
                 speakText( goodbye["text"].replace("{{NAME}}", state.author), state.language )
-                led.update(Leds.rgb_off())
+                arduino.send("done")
                 state.consumeAction(Action.DONE)
 
         elif state.status == State.SENDING:
@@ -116,18 +120,20 @@ def run(config):
                     "language" : state.language,
                     "question" : state.question
                 }
+                arduino.send("busy")
 
                 response = restClient.postAnswer(submission)
                 logging.info("answer got posted to server. ")
  
                 #fetch question
-                question = restClient.getQuestion(state.question["id"])
+                question = restClient.getQuestion()
 
                 # print answer
                 printSubmission(response['data'], question, config["PRINTED_LANGUAGES"])
                 logging.info("answer got printed. ")
                 
                 time.sleep(3.0)
+                arduino.send("done")
                 state.consumeAction(Action.DONE)
             except Exception as error:
                 state.consumeAction(Action.THROW_ERROR, error = str(error))
@@ -138,7 +144,6 @@ def run(config):
             state.consumeAction(Action.TIMEOUT)
 
     logging.info("stopped loop")
-    led.update(Leds.rgb_off())
 
 def stop():
     global running

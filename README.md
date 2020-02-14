@@ -1,5 +1,5 @@
 # interpart
-installation for moabit
+speech interface / multi-language installation for interpart project
 
 ## Setup
 
@@ -7,7 +7,7 @@ Each module has to be setup by following its README.md:
 
 * [modules/translate/README.md](modules/translate/README.md)
 * [modules/database/README.md](modules/database/README.md)
-* [modules/input/README.md](modules/input/README.md)
+* [modules/voice_interface/README.md](modules/voice_interface/README.md)
 * [modules/pdf_creator/README.md](modules/pdf_creator/README.md)
 
 ## Run as Services
@@ -32,7 +32,3 @@ Each module has to be setup by following its README.md:
 
 * edit `nano ~/.bashrc` and add line `~/interpart/modules/input/.venv/bin/python ~/interpart/modules/input/run.py` (change path to module if necesarry)
 * run `sudo raspi-config` and set up to boot pi in cli automaticaly
-
-### TODO
-
-* do we need a translation check when changing question/goodbye/greetings?

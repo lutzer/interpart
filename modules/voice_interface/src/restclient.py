@@ -12,8 +12,11 @@ class RestClient:
         data = response.json()["data"]
         return data
 
-    def getQuestion(self, language):
-        url = self.apiAdress + "/response/question?lang=" + language
+    def getQuestion(self, language = None):
+        if language:
+            url = self.apiAdress + "/response/question?lang=" + language
+        else:
+            url = self.apiAdress + "/response/question"
         response = requests.get(url)
         data = response.json()["data"]
         return data
