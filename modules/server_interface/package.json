@@ -28,9 +28,10 @@
     "webpack-stream": "^5.2.1"
   },
   "dependencies": {
+    "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "webpack-combine-loaders": "^2.0.4"
+    "react-router-dom": "^5.1.2"
   }
 }

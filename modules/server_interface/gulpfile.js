@@ -8,17 +8,34 @@ var gutil = require('gulp-util')
 const webpackDevConfig = require('./webpack.development.config.js')
 const webpackDeployConfig = require('./webpack.deployment.config.js')
 
-async function copy_files() {
+const devBuildFolder = './build'
+const deployBuildFolder = './../server/www/'
+
+async function copy_files_dev() {
     return src('./src/*.css')
-    .pipe(dest('./build/', { overwrite: true }))
+    .pipe(dest(devBuildFolder, { overwrite: true }))
 }
 
-async function build_webpack() {
+async function copy_files_deploy() {
+    return src('./src/*.css')
+    .pipe(dest(deployBuildFolder, { overwrite: true }))
+}
+
+async function build_webpack_dev() {
     return src('./src/js/index.js')
     .pipe(webpackStream(webpackDevConfig), webpack)
     .on('error', gutil.log)
-    .pipe(dest('./build/', { overwrite: true }))
+    .pipe(dest(devBuildFolder, { overwrite: true }))
 }
+
+async function build_webpack_deploy() {
+    return src('./src/js/index.js')
+    .pipe(webpackStream(webpackDeployConfig), webpack)
+    .on('error', gutil.log)
+    .pipe(dest(deployBuildFolder, { overwrite: true }))
+}
+
+const build_dev = series(copy_files_dev, build_webpack_dev)
 
 async function sync_browser() {
     browserSync.init({
@@ -32,20 +49,12 @@ async function sync_browser() {
 };
 
 async function watch_src_folder() {
-    watch(['./src/*.*','./src/**/*.*']).on('change', series(copy_files, build_webpack))
+    watch(['./src/*.*','./src/**/*.*']).on('change', build_dev)
 }
 
-async function deploy() {
-    return src('./src/js/index.js')
-    .pipe(webpackStream(webpackDeployConfig), webpack)
-    .on('error', gutil.log)
-    .pipe(dest('./../server/www/', { overwrite: true }))
-}
-
-const build = series(copy_files, build_webpack)
 
 Object.assign(exports, {
-    build: build,
-    watch: series(build, parallel(watch_src_folder, sync_browser)),
-    deploy: deploy
+    build: build_dev,
+    watch: series(build_dev, parallel(watch_src_folder, sync_browser)),
+    deploy: series(copy_files_deploy, build_webpack_deploy)
 })

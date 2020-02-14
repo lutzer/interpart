@@ -1,26 +1,19 @@
 import React, { Component } from 'react'
+import _ from 'lodash'
+
+import { HashRouter as Router, Switch, Route } from 'react-router-dom'
 
 import { HeaderView } from './HeaderView'
-import { ResponseForm } from './ResponseForm'
-import { SpinnerOverlay } from './SpinnerOverlay'
+import { ResponseItem } from './ResponseItem'
+import { ResponseEditForm } from './ResponseEditForm'
+import { BellButtonsForm } from './BellButtonsForm'
+import { SettingsModel } from '../models/SettingsModel'
 
-const apiAdress = 'http://localhost:3030'
+import { post, get } from '../utils'
+import config from '../config'
 
-function post(adress, data) {
-    return fetch(adress, 
-        {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-}
-
-function get(address) {
-    return fetch(address)
-        .then(response => response.json())
+function SettingsDataFactory(data) {
+    return (new SettingsModel(data)).data
 }
 
 class MainView extends Component {
@@ -28,12 +21,7 @@ class MainView extends Component {
         super()
 
         this.state = {
-            data : {
-                greeting: {},
-                question: {},
-                goodbye: {},
-                languages: [ 'de', 'en']
-            },
+            data : SettingsDataFactory(),
             spinner : false
         }
 
@@ -44,23 +32,21 @@ class MainView extends Component {
         this.loadSettings()
     }
 
-    loadSettings() {
-        get(apiAdress + '/settings/')
+    saveSettings(attribute, data) {
+        let changes = _.set({}, attribute, data)
+
+        post(config.apiAdress + '/settings', changes)
             .then(json => {
-                this.setState({ data: json.data })
+                this.setState({ data: SettingsDataFactory(json.data) })
+            }).catch(() => {
+                alert('Error: No connection')
             })
     }
 
-    saveSettings() {
-        this.setState({ spinner: "Saving Settings ..." })
-        post(apiAdress + '/settings/', this.changes)
-            .then(() => {
-                this.setState({ spinner: false })
-                alert('Settings saved')
-            })
-            .catch(() => {
-                this.setState({ spinner: false })
-                alert('Error: No connection')
+    loadSettings() {
+        get(config.apiAdress + '/settings')
+            .then(json => {
+                this.setState({ data: SettingsDataFactory(json.data) })
             })
     }
 
@@ -71,31 +57,40 @@ class MainView extends Component {
     }
     
     render() {
-        var { data, spinner } = this.state
+        var { data } = this.state
         return (
-            <div>
-                {spinner && <SpinnerOverlay text={spinner}/>}
-                <HeaderView/>
-                <ResponseForm 
-                    title="Greeting" 
-                    text="First response after pressing a button. Ask for the name here."
-                    data={data.greeting}
-                    languages={data.languages}
-                    onChange={ (data) => this.onFormChange('greeting', data)}/>
-                <ResponseForm
-                    title="Question" 
-                    text="Question which is asked to the user. {{NAME}} will be replaced by the name if asked for."
-                    data={data.question}
-                    languages={data.languages}
-                    onChange={ (data) => this.onFormChange('question', data)}/>
-                <ResponseForm 
-                    title="Goodbye" 
-                    text="Goodbye to the user."
-                    data={data.goodbye}
-                    languages={data.languages}
-                    onChange={ (data) => this.onFormChange('goodbye', data)}/>
-                <button onClick={() => this.saveSettings()}>Save Settings</button>
-            </div>
+            <Router>
+                <Switch>
+                    <Route path='/edit/:attribute'>
+                        <div>
+                            <HeaderView/>
+                            <ResponseEditForm data={data} languages={data.languages}
+                                onSave={(attribute, data) => this.saveSettings(attribute, data)}/>
+                        </div>
+                    </Route>
+                    <Route path="/">
+                        <div>
+                            <HeaderView/>
+                            <h2>Responses</h2>
+                            <ResponseItem 
+                                attribute="greeting" 
+                                text="First response after pressing a button. Ask for the name here."
+                                data={data.greeting}/>
+                            <ResponseItem
+                                attribute="question" 
+                                text="Question which is asked to the user. {{NAME}} will be replaced by the name if asked for."
+                                data={data.question}/>
+                            <ResponseItem 
+                                attribute="goodbye" 
+                                text="Goodbye to the user."
+                                data={data.goodbye}/>
+                            <h2>Buttons</h2>
+                            <BellButtonsForm data={data.buttons} languages={data.languages}
+                                onSave={(data) => this.saveSettings('buttons', data)}/>
+                        </div>
+                    </Route>
+                </Switch>
+            </Router>
         )
     }
 }

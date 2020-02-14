@@ -21,8 +21,8 @@ const style = {
     },
     text: {
         color: '#fff',
-        'text-align': 'center',
-        'position': 'absolute',
+        textAlign: 'center',
+        position: 'absolute',
         bottom: '10%',
         width: '100%'
     }
