@@ -16,6 +16,7 @@ Speech and Keyboard Input Module for installation
 * load virtualenvironment: `source .venv/bin/activate`
 * install dependencies: `pip install -r requirements.txt`
     * if there is a problem installing pyaudio install it with: `pip install --global-option='build_ext' --global-option='-I/usr/local/include' --global-option='-L/usr/local/lib' pyaudio`
+* edit config.py and adjust the serial port to to the right one for the arduino (list serial ports with `ls /dev'tty.*`)
 
 ### Setup locale on raspberry pi
 

@@ -7,6 +7,7 @@ class Arduino:
         logging.info("connected to arduino on " + serialPort)
 
     def send(self, msg):
+        self.serial.write((msg + "\n").encode('utf-8'))
         return
 
     def read(self):

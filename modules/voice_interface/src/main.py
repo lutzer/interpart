@@ -27,8 +27,10 @@ def run(config):
     try:
         arduino = Arduino(config['SERIAL_PORT'])
     except:
-        logging.warning("Cannot connect to arduino on " + config.SERIAL_PORT)
+        logging.warning("Cannot connect to arduino on " + config["SERIAL_PORT"])
         arduino = ArduinoDummy()
+
+    arduino.send("speak")
 
     while running:
         if (state.status == State.WAITING_FOR_KEY):
