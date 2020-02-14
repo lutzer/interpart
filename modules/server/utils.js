@@ -3,12 +3,13 @@
  * @Author: Lutz Reiter - http://lu-re.de 
  * @Date: 2019-03-29 19:20:49 
  * @Last Modified by: Lutz Reiter - http://lu-re.de
- * @Last Modified time: 2020-02-13 18:00:15
+ * @Last Modified time: 2020-02-14 13:48:47
  */
 
 const _ = require('lodash')
 const util = require('util')
 const { exec } = require('child_process')
+const he = require('he');
 
 const asyncExec = util.promisify(exec)
 
@@ -36,6 +37,11 @@ async function translate(text, language, translateTo = ['en','de']) {
     if (_.has(output,'errors')) {
         throw output.errors
     }
+    // decode
+    output.translations.map( (ele) => {
+        ele.text = he.decode(ele.text)
+        return ele
+    })
     return output.translations
 }
 

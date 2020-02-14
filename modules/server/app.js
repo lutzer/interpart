@@ -2,7 +2,7 @@
  * @Author: Lutz Reiter - http://lu-re.de 
  * @Date: 2019-03-29 19:20:39 
  * @Last Modified by: Lutz Reiter - http://lu-re.de
- * @Last Modified time: 2020-02-14 13:10:53
+ * @Last Modified time: 2020-02-14 13:49:22
  */
 
 const low = require('lowdb')
@@ -134,7 +134,6 @@ function setupRoutes(app) {
                 throw 'Validation failed'
             
             var response = new ResponseModel(req.body)
-
             await response.translate()
 
             res.send({ data: response.data})
