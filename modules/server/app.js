@@ -2,7 +2,7 @@
  * @Author: Lutz Reiter - http://lu-re.de 
  * @Date: 2019-03-29 19:20:39 
  * @Last Modified by: Lutz Reiter - http://lu-re.de
- * @Last Modified time: 2020-02-13 17:58:55
+ * @Last Modified time: 2020-02-13 21:07:07
  */
 
 const low = require('lowdb')
@@ -160,23 +160,20 @@ function setupRoutes(app) {
             var settings = settingsDb.get('settings').value()
 
             // check if greeting changed
-            if (_.has(req.body,'greeting') && settings.greeting.text != req.body.greeting.text) {
+            if (_.has(req.body,'greeting')) {
                 const greeting = new ResponseModel(req.body.greeting)
-                await greeting.translate()
                 settings.greeting = greeting.data
             }
 
             // check if goodbye changed
-            if (_.has(req.body,'goodbye') && settings.goodbye.text != req.body.goodbye.text) {
+            if (_.has(req.body,'goodbye')) {
                 const goodbye = new ResponseModel(req.body.goodbye)
-                await goodbye.translate()
                 settings.goodbye = goodbye.data
             }
 
             // check if question changed
-            if (_.has(req.body,'question') && settings.question.text != req.body.question.text) {
+            if (_.has(req.body,'question')) {
                 const question = new ResponseModel(req.body.question)
-                await question.translate()
                 settings.question = question.data
             }
 
