@@ -5,7 +5,7 @@ import time
 from os import system
 from subprocess import call, check_output
 
-from .keyboardinput import KeyGrabber 
+#from .keyboardinput import KeyGrabber 
 from .voiceinput import VoiceInput 
 from .statemachine import StateMachine, Action, State
 from .restclient import RestClient
@@ -33,23 +33,22 @@ def run(config):
 
     while running:
         if (state.status == State.WAITING_FOR_KEY):
-            # listen to key
-            keyInput = KeyGrabber()
-            language = keyInput.read()
-
-            if language == None:
-                state.consumeAction(Action.THROW_ERROR, error = "Key is not mapped to a language")
-            else:
+            try:
+                buttonNumber = int(input("select button: "))
+                settings = restClient.getSettings()
+                language = settings['buttons'][buttonNumber]['language']
+                logging.info("selected language: " + language)
                 state.consumeAction(Action.SET_LANGUAGE, language = language)
+            except:
+                state.consumeAction(Action.THROW_ERROR, error = "Could not fetch language for selected button")
 
-        elif state.status == State.ASKING_FOR_NAME:
+        elif state.status == State.SAY_GREETING:
             logging.info("fetching greeting")
             try:
                 # get greeting instead of name question
-                questions = restClient.getGreeting(state.language)
-                nameQuestion = questions[random.randint(0, len(questions) - 1)]
+                greeting = restClient.getGreeting(state.language)
                 led.update(Leds.rgb_on(Color.BLUE))
-                speakText(nameQuestion["text"], state.language)
+                speakText(greeting["text"], state.language)
                 led.update(Leds.rgb_off())
                 state.consumeAction(Action.DONE)
             except:
@@ -71,10 +70,7 @@ def run(config):
             logging.info("fetching question...")
             try:
                  # fetch question from database
-                questions = restClient.getQuestions(state.language)
-                # pick random questions
-                question = questions[random.randint(0, len(questions) - 1)]
-
+                question = restClient.getQuestion(state.language)
                 # put in name
                 question["text"] = question["text"].replace("{{NAME}}", state.author)
                 state.consumeAction(Action.SET_QUESTION, question = question)

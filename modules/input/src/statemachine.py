@@ -2,7 +2,7 @@ from aenum import AutoNumberEnum
 
 class State(AutoNumberEnum):
     WAITING_FOR_KEY = (),
-    ASKING_FOR_NAME = (),
+    SAY_GREETING = (),
     LISTENING_FOR_NAME = (),
     FETCH_QUESTION = (),
     ASKING_QUESTION = (),
@@ -45,13 +45,12 @@ class StateMachine:
         if self.status == State.WAITING_FOR_KEY:
             if action == Action.SET_LANGUAGE:
                 self.language = args.get("language")
-                self.status = State.ASKING_FOR_NAME
+                self.status = State.SAY_GREETING
 
-        elif self.status == State.ASKING_FOR_NAME:
+        elif self.status == State.SAY_GREETING:
             if action == Action.DONE:
                 self.author = "unknown"
-                # skip listening for name
-                self.status = State.FETCH_QUESTION
+                self.status = State.LISTENING_FOR_NAME
 
         elif self.status ==  State.LISTENING_FOR_NAME:
             if action == Action.SET_NAME:

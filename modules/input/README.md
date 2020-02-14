@@ -6,14 +6,14 @@ Speech and Keyboard Input Module for installation
 
 * enable speech-to-text feature in your google cloud api project: [https://console.developers.google.com/apis/api/speech.googleapis.com/]
 * download json file of project and set your $GOOGLE_APPLICATION_CREDENTIALS to its path: osx: `export GOOGLE_APPLICATION_CREDENTIALS="[PATH]"` (add to *.bashrc*)
+* install virtualenv: `sudo pip install virtualenv`
+* install portaudio: `brew install portaudio`
+    * if linuxbrew is not installed: `sudo apt-get install linuxbrew-wrapper`
 
 ## Setup
 
-* install virtualenv: `sudo pip install virtualenv`
 * create virtual envronment: `virtualenv -p python3 .venv`
 * load virtualenvironment: `source .venv/bin/activate`
-* install portaudio: `brew install portaudio`
-    * if linuxbrew is not installed: `sudo apt-get install linuxbrew-wrapper`
 * install dependencies: `pip install -r requirements.txt`
     * if there is a problem installing pyaudio install it with: `pip install --global-option='build_ext' --global-option='-I/usr/local/include' --global-option='-L/usr/local/lib' pyaudio`
 

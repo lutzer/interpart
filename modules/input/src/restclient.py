@@ -6,14 +6,14 @@ class RestClient:
     def __init__(self, apiAdress):
         self.apiAdress = apiAdress
 
-    def getQuestions(self, language):
-        url = self.apiAdress + "/questions/list?lang=" + language
+    def getSettings(self) :
+        url = self.apiAdress + "/settings"
         response = requests.get(url)
         data = response.json()["data"]
         return data
 
-    def getQuestion(self, id):
-        url = self.apiAdress + "/questions/get/" + id
+    def getQuestion(self, language):
+        url = self.apiAdress + "/response/question?lang=" + language
         response = requests.get(url)
         data = response.json()["data"]
         return data
