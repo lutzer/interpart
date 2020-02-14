@@ -2,7 +2,7 @@
  * @Author: Lutz Reiter - http://lu-re.de 
  * @Date: 2019-03-29 19:20:39 
  * @Last Modified by: Lutz Reiter - http://lu-re.de
- * @Last Modified time: 2020-02-13 21:07:07
+ * @Last Modified time: 2020-02-14 13:10:53
  */
 
 const low = require('lowdb')

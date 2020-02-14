@@ -103,7 +103,6 @@ describe('settings', function () {
             .send({ greeting : { text: randomString, language: 'de' } })
         assert(res.statusCode,200)
         assert(res.body.data.greeting.text, randomString)
-        assert.isNotEmpty(res.body.data.greeting.translations)
     })
 
     it('should be able to change goodbye', async () => {
@@ -112,7 +111,6 @@ describe('settings', function () {
             .send({ goodbye : { text: randomString, language: 'de' } })
         assert(res.statusCode,200)
         assert(res.body.data.goodbye.text, randomString)
-        assert.isNotEmpty(res.body.data.goodbye.translations)
     })
 
     it('should be able to change question', async () => {
@@ -121,7 +119,6 @@ describe('settings', function () {
             .send({ question : { text: randomString, language: 'de' } })
         assert(res.statusCode,200)
         assert(res.body.data.question.text, randomString)
-        assert.isNotEmpty(res.body.data.question.translations)
     })
 
     it('should persist changes in settings db', async () => {
@@ -138,15 +135,20 @@ describe('settings', function () {
 describe('responses', function () {
     this.timeout(10000)
 
+    const availableTranslations = ['en', 'de', 'es']
+
     before( async () => {
         // remove all submissions
         await getSettings().unset('settings').write()
 
         await chai.request(app).post('/settings/')
             .send({
-                greeting : { text: 'Hi', language: 'en' },
-                goodbye : { text: 'Bye', language: 'en' },
-                question : { text: 'What', language: 'en' }
+                greeting : { text: 'Hi', language: 'en', 
+                    translations : [ {language: 'de', text: 'test' }, {language: 'es', text: 'test' } ] },
+                goodbye : { text: 'Bye', language: 'en',
+                    translations : [ {language: 'de', text: 'test' }, {language: 'es', text: 'test' } ] },
+                question : { text: 'What', language: 'en', 
+                    translations : [ {language: 'de', text: 'test' }, {language: 'es', text: 'test' } ] },
             })
     })
 
@@ -158,7 +160,7 @@ describe('responses', function () {
     })
 
     it('should retrieve greeting in selected language', async () => {
-        const randomLanguage = _.sample(languages)
+        const randomLanguage = _.sample(availableTranslations)
         var res = await chai.request(app).get('/response/greeting?lang=' + randomLanguage)
         assert(res.statusCode,200)
         assert(res.body.data.language, randomLanguage)
@@ -171,7 +173,7 @@ describe('responses', function () {
     })
 
     it('should retrieve goodbye in selected language', async () => {
-        const randomLanguage = _.sample(languages)
+        const randomLanguage = _.sample(availableTranslations)
         var res = await chai.request(app).get('/response/goodbye?lang=' + randomLanguage)
         assert(res.statusCode,200)
         assert(res.body.data.language, randomLanguage)
@@ -184,7 +186,7 @@ describe('responses', function () {
     })
 
     it('should retrieve questions in selected language', async () => {
-        const randomLanguage = _.sample(languages)
+        const randomLanguage = _.sample(availableTranslations)
         var res = await chai.request(app).get('/response/question?lang=' + randomLanguage)
         assert(res.statusCode,200)
         assert(res.body.data.language, randomLanguage)
