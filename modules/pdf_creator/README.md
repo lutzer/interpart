@@ -7,7 +7,7 @@
 
 * istall dependencies with `npm install`
 * run `npm link`
-* test script with `interop-pdf --submission "{}"` and check if pdf was created in output folder
+* test script with `interpart-pdf --submission "{}"` and check if pdf was created in output folder
 
 * setup printer as standard printer
     * test it with `lp document_name`

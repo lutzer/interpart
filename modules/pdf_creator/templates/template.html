@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Changa&display=swap" rel="stylesheet"/>
+        <link rel="stylesheet" type="text/css" href="../assets/style.css"></link>
+
+    </head>
+    <body>
+        <div class="content">
+            <div class="top">
+                <img src="../assets/LOGO_biebrich.png"/>
+            </div>
+            <div class="bottom">
+                <p class="created-at">
+                    <h1>@studio bieberich I {{submission.createdAt}}</h1>
+                </p>
+            </div>
+            <h3>{{submission.question.text}}</h3>
+            <ul>
+                <li>
+                    <p>{{submission.text}}</p>
+                </li>
+                {{#translations}}
+                <li>
+                    <p>{{submission.text}}</p>
+                </li>
+                {{/translations}}
+            </ul>
+        </div>
+    </body>
+</html>

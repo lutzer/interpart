@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const pug = require('pug');
+const hogan = require("hogan.js");
 const path = require('path');
 const fs = require('fs');
 const { exec } = require('child_process');
@@ -80,6 +80,14 @@ try {
     process.exit()
 }
 
+
+function getTemplate(file) {
+    var template = ""
+    // read file as string
+    template = fs.readFileSync(file).toString()
+    return template
+}
+
 // if everything is ok run translator
 
 run(options).catch( (err) => {
@@ -110,11 +118,12 @@ async function run(options) {
 
     const outputPathHtml = path.resolve(__dirname, 'output', submission.data.id + '.html');
     const outputPathPdf = path.resolve(__dirname, 'output', submission.data.id + '.pdf');
-    const templatePath = path.resolve(__dirname, 'templates', 'template.pug');
+    const templatePath = path.resolve(__dirname, 'templates', 'template.html');
 
-    const compiledTemplate = pug.compileFile(templatePath);
+    // const compiledTemplate = pug.compileFile(templatePath);
+    const compiledTemplate = hogan.compile(getTemplate(templatePath));
 
-    const html = compiledTemplate({ submission : submission.data, translations : filtered_translations })
+    const html = compiledTemplate.render({ submission : submission.data, translations : filtered_translations })
 
     fs.writeFileSync(outputPathHtml, html);
 
