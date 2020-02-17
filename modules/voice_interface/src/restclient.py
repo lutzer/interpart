@@ -37,3 +37,8 @@ class RestClient:
         url = self.apiAdress + "/submissions/add"
         response = requests.post(url, json=submission)
         return response.json()
+
+    def getPrintedLanguages(self):
+        settings = self.getSettings()
+        languages = map(lambda x: x['language'], settings['buttons'])
+        return list(dict.fromkeys(languages)) # removes duplicates

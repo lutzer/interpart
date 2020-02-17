@@ -1,5 +1,13 @@
 import logging
 import serial
+from enum import Enum
+
+class ArduinoStatus(Enum):
+    IDLE = "idle"
+    SPEAK = "speak"
+    LISTEN = "listen"
+    WORKING = "working"
+    ERROR = "error"
 
 class Arduino:
     def __init__(self, serialPort):
