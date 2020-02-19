@@ -15,23 +15,25 @@ Each of these modules has to be setup by following its README.md:
 * install supervisor `sudo apt-install supervisor`
 * run at startup with `sudo systemctl enable supervisor`
 
-### Server Service
+### Server Services
 
 * create supervisor script in */etc/supervisor/conf.d/interpart.conf*
     ```
     [program:interpart_server]
-    directory = /home/pi/interpart/modules/database
+    directory = /home/pi/interpart/modules/server
     command = node index.js
     user = pi
     environment = GOOGLE_APPLICATION_CREDENTIALS="/home/pi/.interpart-translations.json"
-
+    
     [program:interpart_client]
     directory = /home/pi/interpart/modules/voice_interface
-    command = .venv/bin/python run.py
+    command = /home/pi/interpart/modules//voice_interface/.venv/bin/python run.py
     user = pi
     environment = GOOGLE_APPLICATION_CREDENTIALS="/home/pi/.interpart-translations.json"
-  ```
-* read config with `sudo supervisorctl reread; sudo supervisorctl update`
+    ```
+    
+* update config with `sudo supervisorctl reread; sudo supervisorctl update`
+
 * control service with `sudo supervisorctl status | stop | start | tail`
 
 ## Usage

@@ -32,7 +32,7 @@ def run(config):
 
     arduino.send(ArduinoStatus.IDLE.value)
 
-    speakText("Voice interface started...", "en")
+    speakText("Interpart started...", "en")
 
     while running:
         if (state.status == State.WAITING_FOR_KEY):
