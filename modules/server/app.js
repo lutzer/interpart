@@ -2,7 +2,7 @@
  * @Author: Lutz Reiter - http://lu-re.de 
  * @Date: 2019-03-29 19:20:39 
  * @Last Modified by: Lutz Reiter - http://lu-re.de
- * @Last Modified time: 2020-02-19 22:54:04
+ * @Last Modified time: 2020-02-19 23:29:02
  */
 
 const low = require('lowdb')
@@ -24,7 +24,7 @@ function getSettings() {
         greeting: (new ResponseModel()).data,
         goodbye : (new ResponseModel()).data,
         question : (new ResponseModel()).data,
-        languages : config.languages,
+        languages : _.sortBy(config.languages),
         buttons: _.fill(Array(config.numberOfButtons), { language : 'de' })
     }}).write()
 
