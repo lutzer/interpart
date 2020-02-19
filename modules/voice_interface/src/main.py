@@ -142,6 +142,7 @@ def run(config):
                 
                 time.sleep(3.0)
                 arduino.send(ArduinoStatus.IDLE.value)
+                state.consumeAction(Action.DONE)
             except Exception as error:
                 state.consumeAction(Action.THROW_ERROR, error = str(error))
 

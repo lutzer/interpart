@@ -6,6 +6,31 @@ import { useHistory, useParams } from 'react-router-dom'
 
 import { ResponseModel } from '../models/ResponseModel'
 
+const styles = {
+    list: {
+        background: '#eee',
+        margin: '2px',
+        height: '35px'
+    },
+    left: {
+        float: 'left',
+        lineHeight: '35px',
+        marginLeft: '5px',
+        width: '25px'
+    },
+    right: {
+        lineHeight: '35px',
+        marginRight: '11px',
+        marginLeft: '60px'
+    },
+    phrase: {
+        margin: '10px 20px'
+    },
+    phrase_buttons: {
+        margin: '10px 10px'
+    }
+}
+
 function ResponseModelDataFactory(data) {
     return (new ResponseModel(data)).data
 }
@@ -40,11 +65,13 @@ function ResponseEditForm({ data = {}, languages = [], onSave = () => {}}) {
 
     const translationInputs = inputData.translations.map( (ele, index) => {
         return(
-            <li key={index}>
-                <span>{ele.language}</span>
-                <input type='text' maxLength='256'
-                    value={ele.text}
-                    onChange={(event) => handleDataChange(`translations[${index}].text`, event.target.value)}/>
+            <li style={styles.list} key={index}>
+                <div style={styles.left}>{ele.language}</div>
+                <div style={styles.right}>
+                    <input type='text' maxLength='512'
+                        value={ele.text}
+                        onChange={(event) => handleDataChange(`translations[${index}].text`, event.target.value)}/>
+                </div>
             </li>
         )
     })
@@ -57,14 +84,19 @@ function ResponseEditForm({ data = {}, languages = [], onSave = () => {}}) {
             <h2>{ _.capitalize(attribute) }</h2>
             <h3>Original Phrase</h3>
             <div>
-                <input type='text' maxLength='256'
-                    defaultValue={inputData.text}
-                    onChange={(event) => handleDataChange('text', event.target.value)}></input>
-                <select value={inputData.language} 
-                    onChange={(event) => handleDataChange('language', event.target.value)}>
-                    {languageOptions}
-                </select>
-                <button onClick={handleTranslateClick}>Translate</button>
+                <div style={styles.phrase}>
+                    <input type='text' maxLength='512'
+                        defaultValue={inputData.text}
+                        onChange={(event) => handleDataChange('text', event.target.value)}></input>
+                </div>
+                <div style={styles.phrase_buttons}>
+                    <select value={inputData.language} 
+                        onChange={(event) => handleDataChange('language', event.target.value)}>
+                        {languageOptions}
+                    </select>
+                    <button onClick={handleTranslateClick}>Translate</button>
+                </div>
+                    
             </div>
             <h3>Translations</h3>
             <ul>

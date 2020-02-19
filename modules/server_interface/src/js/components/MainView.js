@@ -78,7 +78,7 @@ class MainView extends Component {
                                 data={data.greeting}/>
                             <ResponseItem
                                 attribute="question" 
-                                text="Question which is asked to the user. {{NAME}} will be replaced by the name if asked for."
+                                text="Question which is asked to the user. {{NAME}} will be replaced by the name asked for before."
                                 data={data.question}/>
                             <ResponseItem 
                                 attribute="goodbye" 

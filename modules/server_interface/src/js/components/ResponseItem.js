@@ -4,6 +4,20 @@ import _ from 'lodash'
 
 import { useHistory } from 'react-router-dom'
 
+const style = {
+    container: {
+        borderBottom: '1px solid #eee',
+        padding: '10px',
+        margin: '10px'
+    },
+    language: {
+        color: '#aaa'
+    },
+    text: {
+        fontStyle: 'italic'
+    }
+}
+
 function ResponseItem({ attribute = '', text = '', data = {} }) {
     let history = useHistory()
 
@@ -12,11 +26,11 @@ function ResponseItem({ attribute = '', text = '', data = {} }) {
     }
 
     return (
-        <div>
+        <div style={style.container}>
             <h3>{ _.capitalize(attribute) }</h3>
             {text.length > 0 && <p>{text}</p>}
-            <p>Text: {data.text}</p>
-            <p>Language: {data.language}</p>
+            <p>Text: <span  style={style.text}>{data.text}</span></p>
+            <p style={style.language}>Language: {data.language}</p>
             <button onClick={handleEditClick}>Edit</button>
         </div>
     )

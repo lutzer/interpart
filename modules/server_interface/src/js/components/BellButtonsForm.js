@@ -2,6 +2,24 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 
+const styles = {
+    link: {
+        background: '#eee',
+        margin: '2px',
+        height: '35px'
+    },
+    label: {
+        float: 'left',
+        lineHeight: '35px',
+        marginLeft: '5px'
+    },
+    select: {
+        lineHeight: '35px',
+        float: 'right',
+        marginRight: '5px'
+    }
+}
+
 function BellButtonsForm({ data = [], languages = [], onSave = () => {} }) {
     let [ inputData, setInputData ] = useState(data)
 
@@ -21,12 +39,14 @@ function BellButtonsForm({ data = [], languages = [], onSave = () => {} }) {
 
     const buttonInputs = inputData.map( (ele, index) => {
         return(
-            <li key={index}>
-                <span>{index+1}</span>
-                <select value={ele.language} 
-                    onChange={(event) => handleDataChange(index, event.target.value)}>
-                    {languageOptions}
-                </select>
+            <li style={styles.link} key={index}>
+                <div style={styles.label}>Button {index}</div>
+                <div style={styles.select}>
+                    <select value={ele.language} 
+                        onChange={(event) => handleDataChange(index, event.target.value)}>
+                        {languageOptions}
+                    </select>
+                </div>
             </li>
         )
     })

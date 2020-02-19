@@ -1,3 +1,51 @@
+body {
+    padding: 20px;
+    letter-spacing: 0.05em;
+}
+
+h1 {
+    border-bottom: 1px solid #ddd;
+    text-transform: uppercase;
+}
+
+h2 {
+    color: #ccc;
+    text-transform: uppercase;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+li {
+    padding: 5px;
+}
+
+select {
+    padding:5px;
+    margin: 0px 5px;
+}
+
+input {
+    padding:5px;
+    margin: -5px;
+    width:100%;
+}
+
+select {
+    font-size: 90%;
+}
+
+button {
+    padding:5px;
+    margin: 5px 0px;
+    border-radius: 5px;
+    font-size: 90%;
+}
+
+
+/* spinner */
 .lds-ripple {
     display: inline-block;
     position: relative;
