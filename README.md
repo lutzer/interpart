@@ -6,7 +6,7 @@ speech interface / multi-language installation for interpart project
 Each of these modules has to be setup by following its README.md:
 
 * [modules/translate/README.md](modules/translate/README.md)
-* [modules/database/README.md](modules/database/README.md)
+* [modules/server/README.md](modules/server/README.md)
 * [modules/voice_interface/README.md](modules/voice_interface/README.md)
 * [modules/pdf_creator/README.md](modules/pdf_creator/README.md)
 
@@ -17,22 +17,20 @@ Each of these modules has to be setup by following its README.md:
 
 ### Server Service
 
-* create supervisor script in */etc/supervisor/conf.d/interpart_server.conf* (you might have to adjust the path names)
+* create supervisor script in */etc/supervisor/conf.d/interpart.conf*
     ```
     [program:interpart_server]
-    directory = /home/pi/interpart/modules/server
+    directory = /home/pi/interpart/modules/database
     command = node index.js
     user = pi
-    environment = GOOGLE_APPLICATION_CREDENTIALS="/home/pi/interop-translations.json"
-    ```
-* create supervisor script in */etc/supervisor/conf.d/interpart_client.conf* (you might have to adjust the path names)
-    ```
+    environment = GOOGLE_APPLICATION_CREDENTIALS="/home/pi/.interpart-translations.json"
+
     [program:interpart_client]
     directory = /home/pi/interpart/modules/voice_interface
     command = .venv/bin/python run.py
     user = pi
-    environment = GOOGLE_APPLICATION_CREDENTIALS="/home/pi/interop-translations.json"
-    ```
+    environment = GOOGLE_APPLICATION_CREDENTIALS="/home/pi/.interpart-translations.json"
+  ```
 * read config with `sudo supervisorctl reread; sudo supervisorctl update`
 * control service with `sudo supervisorctl status | stop | start | tail`
 
