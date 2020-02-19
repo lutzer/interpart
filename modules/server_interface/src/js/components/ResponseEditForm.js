@@ -58,6 +58,11 @@ function ResponseEditForm({ data = {}, languages = [], onSave = () => {}}) {
         })
     }
 
+    function handleSaveClick() {
+        onSave(attribute, inputData)
+        history.push('/')
+    }
+
 
     const languageOptions = languages.map( (ele,index) => {
         return <option key={index} value={ele}>{ele}</option>
@@ -102,7 +107,7 @@ function ResponseEditForm({ data = {}, languages = [], onSave = () => {}}) {
             <ul>
                 {translationInputs}
             </ul>
-            <button onClick={() => onSave(attribute, inputData)}>Save</button>
+            <button onClick={handleSaveClick}>Save</button>
         </div>
     )
 }

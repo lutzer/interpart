@@ -3,7 +3,7 @@ speech interface / multi-language installation for interpart project
 
 ## Setup
 
-Each module has to be setup by following its README.md:
+Each of these modules has to be setup by following its README.md:
 
 * [modules/translate/README.md](modules/translate/README.md)
 * [modules/database/README.md](modules/database/README.md)
@@ -17,7 +17,7 @@ Each module has to be setup by following its README.md:
 
 ### Server Service
 
-* create supervisor script in */etc/supervisor/conf.d/interpart.conf* (you might have to adjust the path names)
+* create supervisor script in */etc/supervisor/conf.d/interpart_server.conf* (you might have to adjust the path names)
     ```
     [program:interpart_server]
     directory = /home/pi/interpart/modules/server
@@ -25,10 +25,18 @@ Each module has to be setup by following its README.md:
     user = pi
     environment = GOOGLE_APPLICATION_CREDENTIALS="/home/pi/interop-translations.json"
     ```
+* create supervisor script in */etc/supervisor/conf.d/interpart_client.conf* (you might have to adjust the path names)
+    ```
+    [program:interpart_client]
+    directory = /home/pi/interpart/modules/voice_interface
+    command = .venv/bin/python run.py
+    user = pi
+    environment = GOOGLE_APPLICATION_CREDENTIALS="/home/pi/interop-translations.json"
+    ```
 * read config with `sudo supervisorctl reread; sudo supervisorctl update`
 * control service with `sudo supervisorctl status | stop | start | tail`
 
-### Client Service
+## Usage
 
-* edit `nano ~/.bashrc` and add line `~/interpart/modules/input/.venv/bin/python ~/interpart/modules/input/run.py` (change path to module if necesarry)
-* run `sudo raspi-config` and set up to boot pi in cli automaticaly
+* Connect to the same wifi as the raspberry pi
+* Open Admin interface on http://raspi-ip-address:3030
