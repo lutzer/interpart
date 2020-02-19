@@ -4,6 +4,6 @@ config = dict(
     RECORDING_DURATION = 8.0, # not used
     SPEAKING_ANSWER_TIMEOUT = 2,
     #PRINTED_LANGUAGES = ["en", "de", "el", "tr", "ar"],
-    SERIAL_PORT = "/dev/tty.usbmodem1411",
+    SERIAL_PORT = "/dev/ttyACM0",
     API_ADRESS = "http://localhost:3030"
 )
