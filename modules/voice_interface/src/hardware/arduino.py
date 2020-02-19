@@ -4,6 +4,7 @@ from enum import Enum
 
 class ArduinoStatus(Enum):
     IDLE = "idle"
+    INPUT = "input"
     SPEAK = "speak"
     LISTEN = "listen"
     WORKING = "working"

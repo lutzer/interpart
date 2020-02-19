@@ -32,15 +32,19 @@ def run(config):
 
     arduino.send(ArduinoStatus.IDLE.value)
 
+    speakText("Voice interface started...", "en")
+
     while running:
         if (state.status == State.WAITING_FOR_KEY):
             try:
                 # clear input buffer
                 arduino.clear()
                 # wait for serial msg from arduino
+                arduino.send(ArduinoStatus.INPUT.value)
                 buttonNumber = arduino.read()
                 logging.info("selected button:" + str(buttonNumber))
                 
+                arduino.send(ArduinoStatus.IDLE.value)
                 # get settings from server
                 settings = restClient.getSettings()
                 language = settings['buttons'][buttonNumber]['language']
