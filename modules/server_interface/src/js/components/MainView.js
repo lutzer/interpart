@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 
-import { HashRouter as Router, Switch, Route } from 'react-router-dom'
+import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 import { HeaderView } from './HeaderView'
 import { ResponseItem } from './ResponseItem'
 import { ResponseEditForm } from './ResponseEditForm'
 import { BellButtonsForm } from './BellButtonsForm'
 import { SettingsModel } from '../models/SettingsModel'
+import { SubmissionList } from './SubmissionList'
 
 import { post, get } from '../utils'
 import config from '../config'
@@ -61,6 +62,12 @@ class MainView extends Component {
         return (
             <Router>
                 <Switch>
+                    <Route path='/submissions'>
+                        <div>
+                            <HeaderView/>
+                            <SubmissionList/>
+                        </div>
+                    </Route>
                     <Route path='/edit/:attribute'>
                         <div>
                             <HeaderView/>
@@ -71,6 +78,8 @@ class MainView extends Component {
                     <Route path="/">
                         <div>
                             <HeaderView/>
+                            <h2>Submissions</h2>
+                            <Link to='submissions'><button>View Submissions</button></Link>
                             <h2>Responses</h2>
                             <ResponseItem 
                                 attribute="greeting" 

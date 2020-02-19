@@ -39,4 +39,5 @@ Each of these modules has to be setup by following its README.md:
 ## Usage
 
 * Connect to the same wifi as the raspberry pi
-* Open Admin interface on http://raspi-ip-address:3030
+* Open Admin interface on `http://raspberrypi.local:3030`  or `http://<ip-adress>:3030`
+

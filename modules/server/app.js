@@ -2,7 +2,7 @@
  * @Author: Lutz Reiter - http://lu-re.de 
  * @Date: 2019-03-29 19:20:39 
  * @Last Modified by: Lutz Reiter - http://lu-re.de
- * @Last Modified time: 2020-02-14 13:49:22
+ * @Last Modified time: 2020-02-19 22:54:04
  */
 
 const low = require('lowdb')
@@ -49,6 +49,7 @@ function setupRoutes(app) {
         const cors = require('cors')
         app.use('/settings',cors())
         app.use('/translate',cors())
+        app.use('/submissions/list',cors())
     }   
 
     app.get('/submissions/list', (req, res) => {
