@@ -41,3 +41,8 @@ Each of these modules has to be setup by following its README.md:
 * Connect to the same wifi as the raspberry pi
 * Open Admin interface on `http://raspberrypi.local:3030`  or `http://<ip-adress>:3030`
 
+## Update procedure
+
+* go to interpart directory and run `git pull`
+* delete db und settings: `rm /home/pi/interpart/modules/server/data/*`
+
