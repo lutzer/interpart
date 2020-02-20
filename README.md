@@ -33,8 +33,8 @@ Each of these modules has to be setup by following its README.md:
     ```
     
 * update config with `sudo supervisorctl reread; sudo supervisorctl update`
-
 * control service with `sudo supervisorctl status | stop | start | tail`
+* see all running processes: `sudo supervisorctl status all`
 
 ## Usage
 
