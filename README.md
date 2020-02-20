@@ -36,6 +36,8 @@ Each of these modules has to be setup by following its README.md:
 * control service with `sudo supervisorctl status | stop | start | tail`
 * see all running processes: `sudo supervisorctl status all`
 
+* to debug voice_interface stop service with `sudo supervisorctl stop interpart_client` and run `.venv/bin/python run.py` in `~/interpart/modules/voice_interface$`
+
 ## Usage
 
 * Connect to the same wifi as the raspberry pi
