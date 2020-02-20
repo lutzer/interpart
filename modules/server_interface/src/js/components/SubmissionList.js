@@ -26,7 +26,7 @@ function SubmissionList() {
     useEffect(() => {
         get(config.apiAdress + '/submissions/list').then( (json) => {
             setData(json.data)
-        });
+        })
     },[])
 
     const buttonInputs = data.map( (submission, index) => {
@@ -38,6 +38,7 @@ function SubmissionList() {
                     <p>Question: <span style={styles.text}>{submission.question.text}</span></p>
                     <p>Answer: <span style={styles.text}>{submission.text}</span></p>
                     <p style={styles.language}>Language: {submission.language}</p>
+                    <button onClick={() => history.push('/submissions/' + submission.id)}>Details</button>
                 </div>
             </li>
         )

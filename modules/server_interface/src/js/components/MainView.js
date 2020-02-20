@@ -9,6 +9,7 @@ import { ResponseEditForm } from './ResponseEditForm'
 import { BellButtonsForm } from './BellButtonsForm'
 import { SettingsModel } from '../models/SettingsModel'
 import { SubmissionList } from './SubmissionList'
+import { SubmissionDetails } from './SubmissionDetails'
 
 import { post, get } from '../utils'
 import config from '../config'
@@ -62,6 +63,12 @@ class MainView extends Component {
         return (
             <Router>
                 <Switch>
+                    <Route path='/submissions/:id'>
+                        <div>
+                            <HeaderView/>
+                            <SubmissionDetails/>
+                        </div>
+                    </Route>
                     <Route path='/submissions'>
                         <div>
                             <HeaderView/>
