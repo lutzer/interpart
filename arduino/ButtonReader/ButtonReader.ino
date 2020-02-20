@@ -24,6 +24,15 @@ void loop() {
     }
   }
 
+  /*
+  class ArduinoStatus(Enum):
+    IDLE = "idle"
+    INPUT = "input"
+    SPEAK = "speak"
+    LISTEN = "listen"
+    WORKING = "working"
+    ERROR = "error"
+  */
   if (msgComplete) {
     // need to handle status message here for led stripe
     messageBuffer = "";
