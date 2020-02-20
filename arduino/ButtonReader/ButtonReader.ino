@@ -27,10 +27,10 @@ void loop() {
   /*
   class ArduinoStatus(Enum):
     IDLE = "idle"
-    INPUT = "input"
-    SPEAK = "speak"
-    LISTEN = "listen"
-    WORKING = "working"
+    INPUT = "input" // waiting for keypress
+    SPEAK = "speak" // pi is talking to user
+    LISTEN = "listen" // user is talking to pi
+    WORKING = "working" // pi is busy doing stuff
     ERROR = "error"
   */
   if (msgComplete) {
