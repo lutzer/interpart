@@ -13,6 +13,7 @@ import { SubmissionDetails } from './SubmissionDetails'
 
 import { post, get } from '../utils'
 import config from '../config'
+import { CheckboxInput } from './CheckboxInput'
 
 function SettingsDataFactory(data) {
     return (new SettingsModel(data)).data
@@ -92,6 +93,11 @@ class MainView extends Component {
                                 attribute="greeting" 
                                 text="First response after pressing a button. Ask for the name here."
                                 data={data.greeting}/>
+                            <CheckboxInput
+                                label="Skip listening for name"
+                                checked={data.skipName}
+                                onSave={(checked) => this.saveSettings('skipName', checked)}
+                            />
                             <ResponseItem
                                 attribute="question" 
                                 text="Question which is asked to the user. {{NAME}} will be replaced by the name asked for before."

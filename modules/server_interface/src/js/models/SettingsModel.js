@@ -8,7 +8,8 @@ class SettingsModel {
             question: {},
             goodbye: {},
             languages: [ 'de', 'en'],
-            buttons : []
+            buttons : [],
+            skipName: false
         }, data)
     }
     

@@ -68,12 +68,17 @@ def run(config):
         elif state.status == State.LISTENING_FOR_NAME:
             logging.info("listening for name")
             try:
-                voiceInput = VoiceInput(state.language, config["SUPPORTED_LANGUAGES"])
-                arduino.send(ArduinoStatus.LISTEN.value)
-                answer = voiceInput.listenToMic(silenceTimeout = 1.0)
-                arduino.send(ArduinoStatus.IDLE.value)
-                logging.info("user name is: " + answer )
-                state.consumeAction(Action.SET_NAME, name = answer)
+                # check if name should be skipped
+                settings = restClient.getSettings()
+                if settings['skipName']:
+                    state.consumeAction(Action.SET_NAME, name = '')
+                else:
+                    voiceInput = VoiceInput(state.language, config["SUPPORTED_LANGUAGES"])
+                    arduino.send(ArduinoStatus.LISTEN.value)
+                    answer = voiceInput.listenToMic(silenceTimeout = 1.0)
+                    arduino.send(ArduinoStatus.IDLE.value)
+                    logging.info("user name is: " + answer )
+                    state.consumeAction(Action.SET_NAME, name = answer)
             except Exception as error:
                 state.consumeAction(Action.THROW_ERROR, error = str(error))
 

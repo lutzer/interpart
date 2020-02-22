@@ -33,6 +33,10 @@ input {
     width:100%;
 }
 
+input[type=checkbox] {
+    width: 30px;
+}
+
 select {
     font-size: 90%;
 }

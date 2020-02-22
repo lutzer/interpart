@@ -2,7 +2,7 @@
  * @Author: Lutz Reiter - http://lu-re.de 
  * @Date: 2019-03-29 19:20:39 
  * @Last Modified by: Lutz Reiter - http://lu-re.de
- * @Last Modified time: 2020-02-20 13:52:21
+ * @Last Modified time: 2020-02-22 16:40:44
  */
 
 const low = require('lowdb')
@@ -25,7 +25,8 @@ function getSettings() {
         goodbye : (new ResponseModel()).data,
         question : (new ResponseModel()).data,
         languages : _.sortBy(config.languages),
-        buttons: _.fill(Array(config.numberOfButtons), { language : 'de' })
+        buttons: _.fill(Array(config.numberOfButtons), { language : 'de' }),
+        skipName: false
     }}).write()
 
     return db
@@ -189,6 +190,11 @@ function setupRoutes(app) {
                     if (ele)
                         settings.buttons[i] = ele
                 })
+            }
+
+            // check if skipName was changed
+            if (_.has(req.body, 'skipName')) {
+                settings.skipName = req.body.skipName
             }
 
             // save to database
