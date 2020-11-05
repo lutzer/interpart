@@ -2,7 +2,7 @@
  * @Author: Lutz Reiter - http://lu-re.de 
  * @Date: 2019-03-29 19:20:39 
  * @Last Modified by: Lutz Reiter - http://lu-re.de
- * @Last Modified time: 2020-02-22 16:40:44
+ * @Last Modified time: 2020-11-05 16:10:24
  */
 
 const low = require('lowdb')
@@ -79,13 +79,10 @@ function setupRoutes(app) {
     app.post('/submissions/add', async (req, res) => {
         const db = getDatabase()
         try {
-
             if (!SubmissionModel.validate(req.body))
                 throw 'Validation failed'
-            
             var submission = new SubmissionModel(req.body)
             await submission.translate()
-
             db.get('submissions').push(submission.data).write()
 
             res.send({ data: submission.data})

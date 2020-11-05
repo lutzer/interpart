@@ -27,12 +27,10 @@ describe('submissions', function () {
     })
 
     it('should add a submission', async () => {
-        var res = await chai.request(app)
-            .post('/submissions/add')
-            .send({
-                'text': 'Hallo Welt.',
-                'language': 'de'
-            })
+        var res = await chai.request(app).post('/submissions/add').send({
+            'text': 'Hallo Welt.',
+            'language': 'de'
+        })
         assert(res.statusCode,200)
         assert.typeOf(res.body.data, 'Object')
         assert(res.body.data.text, 'Hallo Welt')
