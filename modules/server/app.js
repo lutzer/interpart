@@ -2,7 +2,7 @@
  * @Author: Lutz Reiter - http://lu-re.de 
  * @Date: 2019-03-29 19:20:39 
  * @Last Modified by: Lutz Reiter - http://lu-re.de
- * @Last Modified time: 2020-11-05 16:10:24
+ * @Last Modified time: 2020-11-06 18:58:52
  */
 
 const low = require('lowdb')
@@ -26,7 +26,10 @@ function getSettings() {
         question : (new ResponseModel()).data,
         languages : _.sortBy(config.languages),
         buttons: _.fill(Array(config.numberOfButtons), { language : 'de' }),
-        skipName: false
+        skipName: false,
+        bellId: 'bell_x',
+        tags: 'tag1 tag2 tag3',
+        location:  { lat: 42.239823, lng: 9.23232 }
     }}).write()
 
     return db

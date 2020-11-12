@@ -4,11 +4,11 @@
  * @Author: Lutz Reiter - http://lu-re.de 
  * @Date: 2019-03-27 18:55:40 
  * @Last Modified by: Lutz Reiter - http://lu-re.de
- * @Last Modified time: 2019-05-19 02:10:42
+ * @Last Modified time: 2020-11-05 16:19:25
  */
 
 const _ = require('lodash')
-const { Translate, TranslateRequest } = require('@google-cloud/translate');
+const { Translate } = require('@google-cloud/translate').v2;
 const commandLineArgs = require('command-line-args')
 const commandLineUsage = require('command-line-usage')
 

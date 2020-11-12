@@ -8,7 +8,7 @@ import re
 import threading
 import time 
 from six.moves import queue
-from langcodes import best_match
+# from langcodes import best_match
 
 class MicrophoneStream(object):
     """Opens a recording stream as a generator yielding the audio chunks."""
@@ -78,7 +78,8 @@ class MicrophoneStream(object):
 class VoiceInput:
 
     def __init__(self, language, supportedLanguages):
-        self.language = best_match(language, supportedLanguages)[0]
+        # self.language = best_match(language, supportedLanguages)[0]
+        self.language = "de"
         logging.info("created speech input for language: " + self.language)
         if (self.language == None or self.language == "und"):
             raise ValueError("Language is not supported")
