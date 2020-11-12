@@ -2,7 +2,7 @@
  * @Author: Lutz Reiter - http://lu-re.de 
  * @Date: 2019-03-29 19:20:39 
  * @Last Modified by: Lutz Reiter - http://lu-re.de
- * @Last Modified time: 2020-11-06 18:58:52
+ * @Last Modified time: 2020-11-12 23:29:00
  */
 
 const low = require('lowdb')
@@ -27,9 +27,10 @@ function getSettings() {
         languages : _.sortBy(config.languages),
         buttons: _.fill(Array(config.numberOfButtons), { language : 'de' }),
         skipName: false,
-        bellId: 'bell_x',
-        tags: 'tag1 tag2 tag3',
-        location:  { lat: 42.239823, lng: 9.23232 }
+        sendToApi: false,
+        bellId: 'bell',
+        tags: '',
+        location: { lat: 42.239823, lng: 9.23232 }
     }}).write()
 
     return db
@@ -195,6 +196,22 @@ function setupRoutes(app) {
             // check if skipName was changed
             if (_.has(req.body, 'skipName')) {
                 settings.skipName = req.body.skipName
+            }
+
+            if (_.has(req.body, 'sendToApi')) {
+                settings.sendToApi = req.body.sendToApi
+            }
+
+            if (_.has(req.body, 'bellId')) {
+                settings.bellId = req.body.bellId
+            }
+
+            if (_.has(req.body, 'tags')) {
+                settings.tags = req.body.tags
+            }
+
+            if (_.has(req.body, 'location')) {
+                settings.location = req.body.location
             }
 
             // save to database

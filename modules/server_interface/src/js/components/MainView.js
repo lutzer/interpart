@@ -14,6 +14,8 @@ import { SubmissionDetails } from './SubmissionDetails'
 import { post, get } from '../utils'
 import config from '../config'
 import { CheckboxInput } from './CheckboxInput'
+import { TextInput } from './TextInput'
+import { LocationInput } from './LocationInput'
 
 function SettingsDataFactory(data) {
     return (new SettingsModel(data)).data
@@ -37,6 +39,8 @@ class MainView extends Component {
 
     saveSettings(attribute, data) {
         let changes = _.set({}, attribute, data)
+
+        console.log(changes)
 
         post(config.apiAdress + '/settings', changes)
             .then(json => {
@@ -109,6 +113,18 @@ class MainView extends Component {
                             <h2>Buttons</h2>
                             <BellButtonsForm data={data.buttons} languages={data.languages}
                                 onSave={(data) => this.saveSettings('buttons', data)}/>
+                            <h2>Api</h2>
+                            <CheckboxInput
+                                label="Send data to Api"
+                                checked={data.sendToApi}
+                                onSave={(checked) => this.saveSettings('sendToApi', checked)}
+                            />
+                            <h3>BellId</h3>
+                            <TextInput text={data.bellId} onChange={(val) => this.saveSettings('bellId', val)}/>
+                            <h3>Tags</h3>
+                            <TextInput text={data.tags} onChange={(val) => this.saveSettings('tags', val)}/>
+                            <h3>Location</h3>
+                            {/* <LocationInput location={data.location} onChange={(val) => this.saveSettings('location', val)}/> */}
                         </div>
                     </Route>
                 </Switch>

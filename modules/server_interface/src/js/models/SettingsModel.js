@@ -9,7 +9,11 @@ class SettingsModel {
             goodbye: {},
             languages: [ 'de', 'en'],
             buttons : [],
-            skipName: false
+            skipName: false,
+            sendToApi: false,
+            bellId: '',
+            tags: '',
+            location : {}
         }, data)
     }
     

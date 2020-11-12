@@ -4,15 +4,13 @@
  * @Author: Lutz Reiter - http://lu-re.de 
  * @Date: 2019-03-27 18:55:40 
  * @Last Modified by: Lutz Reiter - http://lu-re.de
- * @Last Modified time: 2020-11-05 16:19:25
+ * @Last Modified time: 2020-11-12 22:55:04
  */
 
 const _ = require('lodash')
 const { Translate } = require('@google-cloud/translate').v2;
 const commandLineArgs = require('command-line-args')
 const commandLineUsage = require('command-line-usage')
-
-const config = require('./config')
 
 const optionDefinitions = [
     { 
@@ -86,7 +84,7 @@ try {
 run(options)
 
 async function run(options) {
-    const translate = new Translate({ projectId : config.googleApiProjectId });
+    const translate = new Translate();
 
     // modifiy text to exclude translation of text inside {}
     let text = options.text

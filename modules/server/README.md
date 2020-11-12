@@ -9,6 +9,7 @@ Holds question ands submission, provides translation service.
 ## Setup
 
 * run `npm install`
+* run `cp config.default.js config.js` and edit api data
 
 ## Development
 

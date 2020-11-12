@@ -3,6 +3,16 @@ speech interface / multi-language installation for interpart project
 
 ## Setup
 
+### With docker
+```
+# build docker container
+docker build -t drl/interpart .
+# start docker container
+docker run -dt --name <containername> drl/interpart
+# enter docker shell
+docker exec -it <containername> /bin/sh
+```
+
 Each of these modules has to be setup by following its README.md:
 
 * [modules/translate/README.md](modules/translate/README.md)
