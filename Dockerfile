@@ -32,7 +32,7 @@ RUN apk add portaudio portaudio-dev
 RUN apk add build-base
 RUN (cd modules/voice_interface && pip install -r requirements.txt)
 RUN export LANGUAGE=en_US.UTF-8 && export LANG=en_US.UTF-8 && export LC_ALL=en_US.UTF-8
-# RUN dpkg-reconfigure locales
 
-WORKDIR /usr/src/app/modules/server
-CMD ["npm","start"]
+# run voice interface
+WORKDIR /usr/src/app/modules/voice_interface
+CMD ["python","run.py"]
