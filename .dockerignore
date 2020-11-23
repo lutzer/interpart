@@ -1,0 +1,15 @@
+modules/pdf_creator/output/*
+modules/pdf_creator/node_modules
+!modules/pdf_creator/output/.keep
+
+modules/server/data/*
+modules/server/node_modules
+!modules/server/data/.keep
+
+modules/server_interface/node_modules
+
+modules/translate/node_modules
+
+modules/voice_interface/**/*.pyc
+modules/voice_interface/.venv
+modules/voice_interface/.vscode

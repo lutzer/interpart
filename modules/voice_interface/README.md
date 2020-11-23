@@ -12,7 +12,7 @@ Speech and Keyboard Input Module for installation
 
 ## Setup
 
-* create virtual envronment: `virtualenv -p python3 .venv` or `python3 -m venv`
+* create virtual envronment: `virtualenv --python=<path_to_python-3.6> .venv`
 * load virtualenvironment: `source .venv/bin/activate`
 * install dependencies: `pip install -r requirements.txt`
     * if there is a problem installing pyaudio install it with: `pip install --global-option='build_ext' --global-option='-I/usr/local/include' --global-option='-L/usr/local/lib' pyaudio`
