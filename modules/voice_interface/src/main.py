@@ -11,12 +11,13 @@ from .statemachine import StateMachine, Action, State
 from .restclient import RestClient
 from .audio.speak import speak
 from .hardware.arduino import Arduino, ArduinoDummy, ArduinoStatus
+from .config import config
 
 logging.basicConfig(level=logging.INFO)
 
 running = True
 
-def run(config):
+def run():
     global running
 
     #initialize

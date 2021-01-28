@@ -9,14 +9,6 @@ Speech and Keyboard Input Module for installation
 * install pyaudio: `sudo apt-get install python-pyaudio`
 * python3 installed
 
-## Setup
-
-* create virtual envronment: `python3 -m venv .venv`
-* load virtualenvironment: `source .venv/bin/activate`
-* install dependencies: `pip install -r requirements.txt`
-    * if there is a problem installing pyaudio install it with: `pip install --global-option='build_ext' --global-option='-I/usr/local/include' --global-option='-L/usr/local/lib' pyaudio`
-* edit config.py and adjust the serial port to to the right one for the arduino (list serial ports with `ls /dev'tty.*`)
-
 ### Setup locale on raspberry pi
 
 * add these 3 lines to ~/.bashrc:
@@ -27,8 +19,21 @@ Speech and Keyboard Input Module for installation
     ```
 * run `source ~/.bashrc`
 * run `dpkg-reconfigure locales` and generate lang files and set language to *en_US.UTF-8*
-    
 
+## Setup
+
+### With pipx
+
+* install pipx, then `pipx install .`
+
+### Manually
+
+* create virtual envronment: `python3 -m venv .venv`
+* load virtualenvironment: `source .venv/bin/activate`
+* install dependencies: `pip install -r requirements.txt`
+    * if there is a problem installing pyaudio install it with: `pip install --global-option='build_ext' --global-option='-I/usr/local/include' --global-option='-L/usr/local/lib' pyaudio`
+* edit config.py and adjust the serial port to to the right one for the arduino (list serial ports with `ls /dev'tty.*`)
+    
 ## Run Script
 
 * load virtualenvironment: `source .venv/bin/activate`
@@ -36,4 +41,4 @@ Speech and Keyboard Input Module for installation
 
 ## Configure
 
-* select printed out languages in config.py
+* select printed out languages in src/config.py
