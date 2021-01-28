@@ -2,13 +2,14 @@
 speech interface / multi-language installation for interpart project
 
 ## Setup
+* setup raspberry pi system using an image from here: https://github.com/google/aiyprojects-raspbian/releases
 
 ### With docker
 ```
 # build docker container
 docker build -t drl/interpart .
 # start docker container
-docker run -dt --name interpart -p 3030:3030 drl/interpart
+docker run -dt --privileged --name interpart -p 3030:3030 drl/interpart
 # enter docker shell
 docker exec -it interpart /bin/sh
 ```
