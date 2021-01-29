@@ -8,7 +8,7 @@ setup(
     name='interpart',
     entry_points = {
         'console_scripts' : [
-            'interpart_voice_interface=src.main:run'
+            'interpart_voice_interface=interpart.main:run'
         ]
     },
     install_requires=required,

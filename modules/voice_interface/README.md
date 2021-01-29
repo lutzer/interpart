@@ -22,9 +22,10 @@ Speech and Keyboard Input Module for installation
 
 ## Setup
 
-### With pipx
+### With pipx/pip
 
 * install pipx, then `pipx install .`
+* or `pip3 install .` to install globally as *interpart_voice_interface*
 
 ### Manually
 

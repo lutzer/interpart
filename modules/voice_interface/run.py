@@ -1,5 +1,5 @@
 import logging
-from src.main import run
+from interpart.main import run
 
 logging.basicConfig(level=logging.INFO)
 

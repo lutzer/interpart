@@ -16,15 +16,15 @@ ENV GOOGLE_APPLICATION_CREDENTIALS="/usr/src/app/google_certificate.json"
 COPY modules/translate modules/translate
 RUN (cd modules/translate && npm install && npm link)
 
-# install print module
-RUN apk --update --upgrade add gcc musl-dev jpeg-dev zlib-dev libffi-dev cairo-dev pango-dev gdk-pixbuf
-RUN pip install weasyprint
-COPY modules/pdf_creator modules/pdf_creator
-RUN (cd modules/pdf_creator && npm install && npm link)
-
 # install server
 COPY modules/server modules/server
 RUN (cd modules/server && cp config.default.js config.js && npm install)
+
+# install print module
+# RUN apk --update --upgrade add gcc musl-dev jpeg-dev zlib-dev libffi-dev cairo-dev pango-dev gdk-pixbuf
+# RUN pip install weasyprint
+# COPY modules/pdf_creator modules/pdf_creator
+# RUN (cd modules/pdf_creator && npm install && npm link)
 
 # install voice interface
 # COPY modules/voice_interface modules/voice_interface
