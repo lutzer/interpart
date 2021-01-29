@@ -73,3 +73,7 @@ redirect_stderr=true
 * go to interpart directory and run `git pull`
 * delete db und settings: `rm /home/pi/interpart/modules/server/data/*`
 
+### Links
+* Mac Printer Tool for CANON IP110: https://www.canon-europe.com/
+https://gdlp01.c-wss.com/gds/2/0100010082/02/mac-ip110-1_7-mcd.dmg
+
